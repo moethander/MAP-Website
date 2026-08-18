@@ -10,6 +10,10 @@ const placementTestSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    bannerImage: {
+      type: String,
+      default: ""
+    },
   },
   { timestamps: true }
 );

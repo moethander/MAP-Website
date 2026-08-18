@@ -4,12 +4,14 @@ import AdminNavbar from '../../components/AdminNavbar';
 
 const AddGallery = () => {
   const [images, setImages] = useState([]);
+  const [banner, setBanner] = useState(null);
   const [youtube, setYoutube] = useState("");
   const [video, setVideo] = useState(null);
   const [items, setItems] = useState([]);
   const [showItems, setShowItems] = useState(false);
 
   const imageRef = useRef(null);
+  const bannerRef = useRef(null);
   const videoRef = useRef(null);
 
   const fetchGallery = async () => {
@@ -43,6 +45,37 @@ const AddGallery = () => {
   useEffect(() => {
     fetchData();
   }, []);
+
+  //upload banner image
+  const uploadBanner = async() => {
+    if(!banner){
+      alert("Please select a banner image");
+      return;
+    }
+    try{
+      const formData = new FormData();
+      formData.append("banner",banner);
+
+      const res = await axios.post(
+        "http://localhost:4000/api/gallery/banner",
+        formData,{
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      console.log(res.data);
+      setBanner(null);
+      if(bannerRef.current){
+        bannerRef.current.value="";
+      }
+      alert("Banner updated successfully!");
+    }catch(err){
+      console.log(err.response?.data);
+      console.log(err);
+      alert("Banner Upload Failed");
+    }
+  };
 
   //upload image
  const uploadImage = async () => {
@@ -144,6 +177,26 @@ const AddGallery = () => {
         Gallery Management
       </h1>
 
+      {/* Banner Upload Section */}
+        <div className="bg-white shadow rounded-xl p-5 border mb-6 max-w-2xl mx-auto">
+          <h2 className="text-xl font-semibold mb-4">🖼️ Update Gallery Banner Image</h2>
+          <div className="flex gap-4 items-center">
+            <input
+              type="file"
+              ref={bannerRef}
+              accept="image/*"
+              onChange={(e) => setBanner(e.target.files[0])}
+              className="w-full border rounded p-2"
+            />
+            <button
+              onClick={uploadBanner}
+              className="bg-purple-600 hover:bg-purple-700 text-white px-6 py-2 rounded font-semibold whitespace-nowrap"
+            >
+              Upload Banner
+            </button>
+          </div>
+        </div>
+
       <div className="grid md:grid-cols-3 gap-6">
         {/* Upload Image */}
         <div className="bg-white shadow rounded-xl p-5 border">
@@ -212,6 +265,7 @@ const AddGallery = () => {
       >
         {showItems ? "Hide Items" : "Show Items"}
       </button>
+      
       {showItems && (
         <div className="grid md:grid-cols-3 gap-5 mt-6">
           {items.map((item) => (

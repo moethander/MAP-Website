@@ -1,14 +1,14 @@
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Home from './pages/Home.jsx';
-import TimeTable from './pages/TimeTable.jsx';
 import Test from './pages/Test.jsx';
 import Activities from './pages/Activities.jsx';
 import Contact from './pages/Contact.jsx';
-// import Footer from './components/Footer.jsx';
+import Footer from './components/Footer.jsx';
 import Courses from './pages/Courses.jsx';
 import Gallery from './pages/Gallery.jsx';
 import Faq from "./pages/Faq.jsx";
+import AboutUs from './pages/Aboutus.jsx';
 
 import CoursesDetail from './pages/admin/CoursesDetail.jsx';
 import AdminLogin from './pages/admin/AdminLogin.jsx';
@@ -22,7 +22,8 @@ import AdminFAQ from './pages/admin/AdminFAQ.jsx';
 import AddContact from './pages/admin/AddContact.jsx';
 import AdminTest from './pages/admin/AdminTest.jsx';
 import ManageHome from './pages/admin/Managehome.jsx';
-
+import ManageReviews from './pages/admin/ManageReviews.jsx';
+import AdminAbout from './pages/admin/AdminAbout.jsx';
 // import PlacementTest from './pages/PlacementTest'; // နောက်မှ ဆောက်မယ်
 
 
@@ -47,11 +48,11 @@ function App() {
       
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/timetable" element={<TimeTable />} />
         <Route path="/placement-test" element={<Test/>}/> 
         <Route path="/activities" element={<Activities />} />
         <Route path="/gallery" element={<Gallery/>}/>
         <Route path="/faq" element={<Faq/>}/>
+        <Route path="/about" element={<AboutUs/>}/>
         <Route path="/contact" element={<Contact />} />
         <Route path="/courses" element={< Courses/>}/>
         <Route path="/courses/:id" element={<CoursesDetail/>}/>
@@ -68,9 +69,9 @@ function App() {
         <Route path="/admin/add-contact" element={<AddContact/>}/>
         <Route path="/admin/add-test" element={<AdminTest/>}/>
         <Route path="/admin/home" element={<ManageHome/>}/>
-        
+        <Route path="/admin/reviews" element={<ManageReviews/>}/>
+        <Route path="/admin/add-about" element={<AdminAbout />} />
 
-        {/* <Route path="/placement-test" element={<PlacementTest />} /> */}
       </Routes>
       </Layout>
     </Router>

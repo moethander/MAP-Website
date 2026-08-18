@@ -11,6 +11,7 @@ const levelSchema = new mongoose.Schema({
 const courseSchema = new mongoose.Schema({
   name: String,
   description: String,
+  image: String,
   icon: String,
   startDate: String,
   levels: [levelSchema]

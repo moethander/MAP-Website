@@ -4,7 +4,7 @@ import upload from "../middleware/upload.js";
 const uploadRouter = express.Router();
 
 // image upload
-uploadRouter.post("/", upload.array("images",5), (req, res) => {
+uploadRouter.post("/", upload.array("images",10), (req, res) => {
   try {
     const imageUrls = req.files.map(
         (file) =>  `http://localhost:4000/uploads/${file.filename}`

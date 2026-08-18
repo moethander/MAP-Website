@@ -15,11 +15,14 @@ const AdminNavbar = () => {
                 <div className="flex gap-6 items-center">
                     <NavLink to = "/admin/dashboard" className="hover:text-yellow-300">Dashboard</NavLink>
                     <NavLink to = "/admin/home" className="hover:text-yellow-300">Home</NavLink>
+                    <NavLink to = "/admin/reviews" className="hover:text-yellow-300">Manage Reviews</NavLink>
                     <NavLink to = "/admin/manage-courses" className="hover:text-yellow-300">Courses</NavLink>
+                    <NavLink to = "/admin/add-test" className="hover:text-yellow-300">Test</NavLink>
+                    <NavLink to = "/admin/add-activity" className="hover:text-yellow-300">Activities</NavLink> 
                     <NavLink to = "/admin/add-gallery" className="hover:text-yellow-300">Gallery</NavLink>
                     <NavLink to = "/admin/add-faq" className="hover:text-yellow-300">FAQ</NavLink>
                     <NavLink to = "/admin/add-contact" className="hover:text-yellow-300">Contact</NavLink>
-                    <NavLink to = "/admin/add-test" className="hover:text-yellow-300">Test</NavLink>
+                    <NavLink to = "/admin/add-about" className="hover:text-yellow-300">AboutUs</NavLink>
 
                     <button onClick={handleLogout} className="bg-red-500 px-4 py-2 rounded hover:bg-red-600">Logout</button>
                 </div>

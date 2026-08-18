@@ -24,6 +24,40 @@ const storage = multer.diskStorage({
 
 const upload = multer ({storage});
 
+//get banner image
+GalleryRouter.get("/banner", async(req,res) => {
+  try{
+    const banner = await Gallery.findOne({type: "banner"}).sort({createdAt: -1});
+    res.status(200).json(banner ? {url: banner.url}:{url: ""});
+
+  }catch(error){
+    res.status(500).json({message: error.message});
+  }
+});
+
+//post banner image
+GalleryRouter.post("/banner", upload.single("banner"), async(req,res)=>{
+  try{
+    if(!req.file){
+      return res.status(400).json({message: "No file uploaded"});
+    }
+    await Gallery.deleteMany({type: "banner"});
+
+    const bannerItem = new Gallery({
+      type: "banner",
+      url: req.file.path.replace(/\\/g, "/"),
+    });
+    await bannerItem.save();
+
+    res.status(200).json({
+      message: "Banner updated successfully",
+      url: bannerItem.url,
+    });
+  }catch(error){
+    res.status.apply(500).json({message: error.message});
+  }
+});
+
 //image upload
 GalleryRouter.post("/image", upload.array("images", 20), async (req, res) => {
   try {

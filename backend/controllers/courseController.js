@@ -11,14 +11,31 @@ export const deleteCourse = async (req, res) => {
 };
 
 export const updateCourse = async (req,res) => {
-    try{
-        const updatedCourse = 
-        await Course.findByIdAndUpdate(req.params.id, req.body, {new:true});
-        
-        res.json(updatedCourse);
-    }catch(error){
-        res.status(500).json({ message: error.message});
+
+  try {
+
+    const updateData = {
+      name: req.body.name,
+      description: req.body.description,
+      startDate: req.body.startDate
+    };
+    // image update
+    if(req.file){
+      updateData.image = req.file.filename;
     }
+    const updatedCourse = await Course.findByIdAndUpdate(
+      req.params.id,
+      updateData,
+      {new:true}
+    );
+
+    res.json(updatedCourse);
+  } catch(error) {
+    res.status(500).json({
+      message:error.message
+    });
+  }
+
 };
 
 //add level

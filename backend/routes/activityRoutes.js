@@ -1,55 +1,38 @@
 import express from "express";
-import Activity from "../models/activityModel.js";
+import multer from "multer";
+import path from "path";
+import {
+  getBanner,
+  updateBanner,
+  addActivity,
+  getActivities,
+  deleteActivity,
+  updateActivity,
+} from "../controllers/activityController.js";
 
 const ActivityRouter = express.Router();
 
-// Add Activity
-ActivityRouter.post("/", async (req, res) => {
-  try {
-    const activity = new Activity(req.body);
-    await activity.save();
-
-    res.status(201).json(activity);
-  } catch (error) {
-
-    res.status(500).json({ message: error.message });
-  }
+// 📸 Multer Storage Setup
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "uploads/");
+  },
+  filename: (req, file, cb) => {
+    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
+    cb(null, "banner-" + uniqueSuffix + path.extname(file.originalname));
+  },
 });
 
-// Get All Activities
-ActivityRouter.get("/", async (req, res) => {
-  try {
-    const activities = await Activity.find();
-    res.json(activities);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-});
+const upload = multer({ storage });
 
+// Banner Routes
+ActivityRouter.get("/banner", getBanner);
+ActivityRouter.post("/banner", upload.single("bannerImage"), updateBanner);
 
-//delete
-ActivityRouter.delete("/:id", async(req,res)=>{
-  try{
-    await Activity.findByIdAndDelete(req.params.id);
-    res.json({message: "Activity delected"});
-  }catch(error){
-    console.log(error);
-    res.status(500).json({message:error.message});
-  }
-});
+// Activity CRUD Routes
+ActivityRouter.post("/", addActivity);
+ActivityRouter.get("/", getActivities);
+ActivityRouter.delete("/:id", deleteActivity);
+ActivityRouter.put("/:id", updateActivity);
 
-//edit
-ActivityRouter.put("/:id", async (req, res) => {
-  try {
-    const updated = await Activity.findByIdAndUpdate(
-      req.params.id,
-      req.body,
-      { new: true }
-    );
-
-    res.json(updated);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-});
 export default ActivityRouter;

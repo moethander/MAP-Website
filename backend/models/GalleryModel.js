@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 const gallerySchema = new mongoose.Schema({
   type: {
     type: String, // "image" | "video" | "youtube"
-    enum: ["image","video","youtube"],
+    enum: ["image","video","youtube","banner"],
     required: true,
   },
   url:{

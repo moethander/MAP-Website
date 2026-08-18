@@ -20,6 +20,9 @@ const cpUpload = upload.fields([
   { name: "bannerImage", maxCount: 1 },
   { name: "visionImage", maxCount: 1 },
   { name: "missionImage", maxCount: 1 },
+  { name: "feature1Image", maxCount: 1 },
+  { name: "feature2Image", maxCount: 1 },
+  { name: "feature3Image", maxCount: 1 },
 ]);
 
 homeRouter.get("/", getHome);

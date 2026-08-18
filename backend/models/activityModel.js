@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 
 const activitySchema = new mongoose.Schema({
+  bannerImage:{type:String,default:""},
   title: String,
   description: String,
   date: String,

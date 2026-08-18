@@ -12,22 +12,25 @@ const AdminDashboard = () => {
         <button className='bg-blue-600 text-white w-full border p-3 rounded-lg' onClick={()=> navigate("/admin/home")}>Manage Home</button>
         <br/><br/>
 
-
-        <button className='bg-blue-600 text-white w-full border p-3 rounded-lg' onClick={()=> navigate("/admin/add-activity")}>Add Activities & Events</button>
+        <button className='bg-blue-600 text-white w-full border p-3 rounded-lg' onClick={() => navigate("/admin/reviews")}>Manage Reviews</button>
         <br/><br/>
-
-        <button className='bg-blue-600 text-white w-full border p-3 rounded-lg' onClick={()=> navigate("/admin/add-schedule")}>Add Time-Table</button>
-        <br /><br />
 
         <button className='bg-blue-600 text-white w-full border p-3 rounded-lg' onClick={()=> navigate("/admin/manage-courses")}>Add Courses</button>
         <br/><br/>
 
         <button className='bg-blue-600 text-white w-full border p-3 rounded-lg' onClick={()=> navigate("/admin/add-level")}>Add Class </button>
+        <br/><br/>
 
-         <button className='bg-blue-600 text-white w-full border p-3 rounded-lg' onClick={()=> navigate("/admin/add-gallery")}>Add Gallery</button>
+        <button className='bg-blue-600 text-white w-full border p-3 rounded-lg' onClick={()=> navigate("/admin/add-activity")}>Add Activities & Events</button>
+        <br/><br/>
+
+        <button className='bg-blue-600 text-white w-full border p-3 rounded-lg' onClick={()=> navigate("/admin/add-gallery")}>Add Gallery</button>
         <br/><br/>
 
         <button className='bg-blue-600 text-white w-full border p-3 rounded-lg' onClick={()=> navigate("/admin/add-faq")}>Add FAQs</button>
+        <br/><br/>
+
+        <button className='bg-blue-600 text-white w-full border p-3 rounded-lg' onClick={()=> navigate("/admin/about")}>Add AboutUs</button>
         <br/><br/>
 
         <button className='bg-blue-600 text-white w-full border p-3 rounded-lg' onClick={()=> navigate("/admin/add-contact")}>Add Contact</button>

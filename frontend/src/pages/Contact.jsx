@@ -1,100 +1,3 @@
-// import React, { useEffect, useState } from "react";
-// import axios from "axios";
-
-// const Contact = () => {
-
-//   const [contact, setContact] = useState({});
-
-//   const fetchContact = async () => {
-//     try {
-
-//       const res = await axios.get(
-//         "http://localhost:4000/api/contact"
-//       );
-
-//       setContact(res.data);
-
-//     } catch (error) {
-//       console.log(error);
-//     }
-//   };
-
-//   useEffect(() => {
-//     fetchContact();
-//   }, []);
-
-//     return (
-//     <div>
-
-//       {/* Banner */}
-
-//       <img
-//         src={`http://localhost:4000/${contact.banner}`}
-//         className="w-full h-[350px] object-cover"
-//         alt=""
-//       />
-
-//       <div className="max-w-6xl mx-auto py-12">
-
-//         <h1 className="text-4xl font-bold text-center mb-10">
-//           CONTACT US
-//         </h1>
-
-//         <div className="grid md:grid-cols-2 gap-10">
-
-//           {/* Address */}
-
-//           <div>
-
-//             <h2 className="text-2xl font-bold mb-5">
-//               Address
-//             </h2>
-
-//             <p>
-//               {contact.address}
-//             </p>
-
-//           </div>
-
-//           {/* Phone */}
-
-//           <div>
-
-//             <h2 className="text-2xl font-bold mb-5">
-//               Call Us Now
-//             </h2>
-
-//             <a
-//               href={`tel:${contact.phone}`}
-//               className="bg-red-600 text-white px-6 py-3 rounded"
-//             >
-//               {contact.phone}
-//             </a>
-
-//           </div>
-
-//         </div>
-
-//       </div>
-
-//       {/* Google Map */}
-
-//       <iframe
-//         src={contact.map}
-//         width="100%"
-//         height="450"
-//         style={{ border: 0 }}
-//         loading="lazy"
-//         allowFullScreen
-//       ></iframe>
-
-//     </div>
-//   );
-
-// };
-
-// export default Contact;
-
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import {
@@ -106,26 +9,37 @@ import {
 
 const Contact = () => {
   const [contact, setContact] = useState({});
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     const fetchContact = async () => {
       try {
-        const res = await axios.get(
-          "http://localhost:4000/api/contact"
-        );
-
+        const res = await axios.get("http://localhost:4000/api/contact");
         setContact(res.data);
       } catch (error) {
-        console.log(error);
+        console.error("Error fetching contact data:", error);
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchContact();
   }, []);
 
-  return (
-    <div className="bg-gray-100">
-      {/* Banner */}
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-900 transition-colors">
+        <p className="text-gray-500 dark:text-gray-400 font-medium text-lg">Loading...</p>
+      </div>
+    );
+  }
 
+  // Clean phone number for tel: link (removes spaces, dashes, etc.)
+  const formattedPhone = contact.phone ? contact.phone.replace(/[^0-9+]/g, "") : "";
+
+  return (
+    <div className="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-100 min-h-screen transition-colors duration-300">
+      {/* Banner */}
       {contact.banner && (
         <section className="relative h-[320px]">
           <img
@@ -133,72 +47,73 @@ const Contact = () => {
             alt="Contact Banner"
             className="w-full h-full object-cover object-bottom"
           />
-
           <div className="absolute inset-0 bg-black/55 flex items-center justify-center">
             <div className="text-center text-white">
               <h1 className="text-5xl md:text-6xl font-bold">Contact Us</h1>
-
               <p className="mt-4 text-lg">We'd love to hear from you.</p>
             </div>
           </div>
         </section>
       )}
 
-      {/* Contact Info */}
-
-      <div className="max-w-6xl mx-auto px-5 py-20">
-        <div className="grid md:grid-cols-2 gap-10">
+      {/* Contact Info Grid */}
+      <div className="max-w-6xl mx-auto px-5 py-16">
+        <div className="grid md:grid-cols-2 gap-10 items-stretch">
+          
           {/* Address Card */}
-
-          <div className="bg-white rounded-3xl shadow-lg p-10 hover:shadow-2xl transition">
-            <div className="flex items-center gap-4 mb-6">
-              <div className="bg-blue-600 text-white w-14 h-14 rounded-full flex items-center justify-center text-2xl">
-                <FaMapMarkerAlt />
+          <div className="bg-white dark:bg-gray-800 rounded-3xl shadow-lg p-8 hover:shadow-2xl transition duration-300 flex flex-col justify-between border border-gray-100 dark:border-gray-700/50">
+            <div>
+              <div className="flex items-center gap-4 mb-6">
+                <div className="bg-blue-600 dark:bg-blue-500 text-white w-14 h-14 rounded-2xl flex items-center justify-center text-2xl shadow-md shrink-0">
+                  <FaMapMarkerAlt />
+                </div>
+                <h2 className="text-3xl font-bold text-gray-800 dark:text-white">Our Address</h2>
               </div>
-
-              <h2 className="text-3xl font-bold text-blue-700">Our Address</h2>
+              <p className="text-gray-600 dark:text-gray-300 leading-relaxed text-lg">
+                {contact.address || "No address provided."}
+              </p>
             </div>
-
-            <p className="text-gray-600 leading-8">{contact.address}</p>
           </div>
 
           {/* Phone Card */}
-
-          <div className="bg-white rounded-3xl shadow-lg p-10 hover:shadow-2xl transition">
-            <div className="flex items-center gap-4 mb-6">
-              <div className="bg-green-600 text-white w-14 h-14 rounded-full flex items-center justify-center text-2xl">
-                <FaPhoneAlt />
+          <div className="bg-white dark:bg-gray-800 rounded-3xl shadow-lg p-8 hover:shadow-2xl transition duration-300 flex flex-col justify-between border border-gray-100 dark:border-gray-700/50">
+            <div>
+              <div className="flex items-center gap-4 mb-6">
+                <div className="bg-blue-600 dark:bg-blue-500 text-white w-14 h-14 rounded-2xl flex items-center justify-center text-2xl shadow-md shrink-0">
+                  <FaPhoneAlt />
+                </div>
+                <h2 className="text-3xl font-bold text-gray-800 dark:text-white">Call Us</h2>
               </div>
-
-              <h2 className="text-3xl font-bold text-green-700">Call Us</h2>
+              <p className="text-gray-600 dark:text-gray-300 mb-6 text-lg">
+                Have questions? Feel free to contact us.
+              </p>
             </div>
 
-            <p className="text-gray-600 mb-8">
-              Have questions? Feel free to contact us.
-            </p>
-
-            <a
-              href={`tel:${contact.phone}`}
-              className="inline-block bg-green-600 hover:bg-green-700 text-white px-8 py-4 rounded-full text-lg transition"
-            >
-              📞 {contact.phone}
-            </a>
+            {contact.phone && (
+              <div>
+                <a
+                  href={`tel:${formattedPhone}`}
+                  className="inline-flex items-center justify-center bg-blue-600 hover:bg-blue-700 text-white font-medium px-8 py-4 rounded-full text-lg shadow-lg transition duration-200 active:scale-95"
+                >
+                  {contact.phone}
+                </a>
+              </div>
+            )}
           </div>
         </div>
 
-        {/* Social */}
-
+        {/* Social Links */}
         {(contact.facebook || contact.youtube) && (
-          <div className="bg-white rounded-3xl shadow-lg p-10 mt-12 text-center">
-            <h2 className="text-3xl font-bold text-blue-700 mb-8">Follow Us</h2>
-
+          <div className="bg-white dark:bg-gray-800 rounded-3xl shadow-lg p-8 mt-10 text-center border border-gray-100 dark:border-gray-700/50 transition duration-300">
+            <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-6">Follow Us</h2>
             <div className="flex justify-center gap-6">
               {contact.facebook && (
                 <a
                   href={contact.facebook}
                   target="_blank"
                   rel="noreferrer"
-                  className="bg-blue-600 hover:bg-blue-700 text-white w-14 h-14 rounded-full flex items-center justify-center text-2xl transition"
+                  className="bg-blue-600 hover:bg-blue-700 text-white w-14 h-14 rounded-full flex items-center justify-center text-2xl transition shadow-md hover:scale-105"
+                  aria-label="Facebook"
                 >
                   <FaFacebookF />
                 </a>
@@ -209,7 +124,8 @@ const Contact = () => {
                   href={contact.youtube}
                   target="_blank"
                   rel="noreferrer"
-                  className="bg-red-600 hover:bg-red-700 text-white w-14 h-14 rounded-full flex items-center justify-center text-2xl transition"
+                  className="bg-red-600 hover:bg-red-700 text-white w-14 h-14 rounded-full flex items-center justify-center text-2xl transition shadow-md hover:scale-105"
+                  aria-label="YouTube"
                 >
                   <FaYoutube />
                 </a>
@@ -219,19 +135,18 @@ const Contact = () => {
         )}
       </div>
 
-      {/* Google Map */}
-
+      {/* Google Map Section */}
       {contact.map && (
-        <section className="pb-10">
-          <div className="max-w-6xl mx-auto rounded-3xl overflow-hidden shadow-2xl">
+        <section className="pb-16 px-5">
+          <div className="max-w-6xl mx-auto rounded-3xl overflow-hidden shadow-2xl border border-gray-200 dark:border-gray-700/50">
             <iframe
               src={contact.map}
               width="100%"
-              height="500"
+              height="450"
               style={{ border: 0 }}
               loading="lazy"
               allowFullScreen
-              title="Google Map"
+              title="Google Map Location"
             ></iframe>
           </div>
         </section>
