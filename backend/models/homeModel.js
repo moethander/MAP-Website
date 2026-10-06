@@ -8,6 +8,7 @@ const homeSchema = new mongoose.Schema({
   heroBadge: {type: String, default: "Myanmar Academic Planet"},
   heroTitle: { type: String, default: "Learn English With Confidence" },
   heroDescription: { type: String, default: "Improve your English skills with experienced teachers, interactive lessons, and a supportive learning environment." },
+  messengerPageId: { type: String, default: ""},
 
   whyChooseTitle: { type: String, default: "Building FutureThrough Education" },
   whyChooseDescription: { type: String, default: "Myanmar Academic Planet provides quality education with experienced teachers, practical learning and opportunities for students." },

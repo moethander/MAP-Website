@@ -114,7 +114,7 @@ const WhyChooseMAP = ({ homeData }) => {
         >
           {/* 🎯 text-blue-600 dark:text-blue-400 ပြောင်းထားသည် */}
           <p className="text-blue-600 dark:text-blue-400 font-bold tracking-[5px] uppercase">
-            WHY CHOOSE MAP ?
+            WHY CHOOSE M-A-P ?
           </p>
 
           {/* 🎯 text-gray-900 dark:text-white ခံထားသည် */}

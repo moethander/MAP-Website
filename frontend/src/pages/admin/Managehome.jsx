@@ -10,6 +10,7 @@ const ManageHome = () => {
     heroBadge: "",
     heroTitle: "",
     heroDescription: "",
+    messengerPageId: "",
 
     whyChooseTitle: "",
     whyChooseDescription: "",
@@ -58,11 +59,13 @@ const ManageHome = () => {
       try {
         const res = await axios.get("http://localhost:4000/api/home");
         if (res.data.success && res.data.home) {
-          setFormData({
-            // ...prevData,
+          setFormData((prev)=>({
+            ...prev,
             ...res.data.home,
             
-          });
+            messengerPageId: res.data.home.messengerPageId || "",
+            
+          }));
         }
       } catch (error) {
         console.error("Error fetching home data:", error);
@@ -88,6 +91,7 @@ const ManageHome = () => {
   formDataToSend.append("heroBadge", formData.heroBadge || "");
   formDataToSend.append("heroTitle", formData.heroTitle || "");
   formDataToSend.append("heroDescription", formData.heroDescription || "");
+  formDataToSend.append("messengerPageId", formData.messengerPageId || ""); 
 
   formDataToSend.append("whyChooseTitle", formData.whyChooseTitle || "");
   formDataToSend.append("whyChooseDescription", formData.whyChooseDescription || "");
@@ -237,12 +241,25 @@ const ManageHome = () => {
                 className="w-full border rounded-lg p-2 bg-white"
               ></textarea>
             </div>
+
+            {/* hero section input messengarid */}
+            <div>
+              <label className="block text-sm font-medium mb-1">Messenger Page ID</label>
+              <input
+               type="text"
+               name="messengerPageId"
+               value={formData.messengerPageId || ''}
+               onChange={handleChange}
+               placeholder="Enter Facebook Page Id for Chat with Us"
+               className="w-full border rounded-lg p-2 bg-white"
+              />
+            </div>
           </div>
 
           {/* Why Choose MAP Section */}
           <div className="border p-4 rounded-lg bg-gray-50 space-y-6">
             <h2 className="text-lg font-bold text-gray-700">
-              Why Choose MAP Section
+              Why Choose M-A-P Section
             </h2>
 
             {/* ဘယ်ဘက်ခြမ်း Main Content ပြင်ရန် */}

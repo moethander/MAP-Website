@@ -1,10 +1,9 @@
 import express from 'express'
 import cors from 'cors'
 import 'dotenv/config'
-import bcrypt from 'bcryptjs' // <--- ၁။ bcrypt import လုပ်ပါ
+import bcrypt from 'bcryptjs' // 
 import { connectDB } from './config/db.js';
-import Admin from './models/Admin.js'; // <--- ၂။ Admin Model လမ်းကြောင်း မှန်အောင်ချိန်ပါ (သို့မဟုတ် AdminModel)
-
+import Admin from './models/Admin.js'; 
 import userRouter from './routes/userRoutes.js';
 import CourseRouter from './routes/courseRoutes.js';
 import ActivityRouter from './routes/activityRoutes.js';
@@ -21,7 +20,7 @@ import AboutRouter from './routes/aboutRoutes.js';
 import AdminRouter from './routes/adminRoutes.js';
 
 const app = express();
-const port = 4000;
+const port = process.env.PORT || 4000;
 
 // Middleware
 app.use((cors()));
@@ -32,7 +31,6 @@ app.use("/uploads",express.static("uploads"));
 // DB Connection
 connectDB();
 
-// <--- ၃။ Default Admin Account Auto ဆောက်ပေးမည့် Function --->
 const createDefaultAdmin = async () => {
   try {
     const adminEmail = "admin@gmail.com";
@@ -51,7 +49,7 @@ const createDefaultAdmin = async () => {
   }
 };
 
-// Database ချိတ်ပြီးတာနဲ့ Admin ရှိမရှိ စစ်ခိုင်းမည်
+
 createDefaultAdmin();
 
 // Routes

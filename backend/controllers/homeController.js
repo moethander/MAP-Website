@@ -24,7 +24,7 @@ export const saveHome = async (req, res) => {
     const {
       storyTitle,
       storyDescription,
-      heroBadge, heroTitle, heroDescription,
+      heroBadge, heroTitle, heroDescription, messengerPageId,
       whyChooseTitle, whyChooseDescription,
       feature1Title, feature1Description, 
       feature2Title, feature2Description, 
@@ -77,7 +77,7 @@ export const saveHome = async (req, res) => {
     const updateData = {
       storyTitle,
       storyDescription,
-      heroBadge, heroTitle, heroDescription,
+      heroBadge, heroTitle, heroDescription, messengerPageId,
       whyChooseTitle, whyChooseDescription,
       feature1Title, feature1Description, feature1Image, 
       feature2Title, feature2Description, feature2Image,

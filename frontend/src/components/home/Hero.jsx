@@ -22,7 +22,7 @@ const Hero = ({ homeData, backendUrl }) => {
           <div className="relative z-10 h-full max-w-7xl mx-auto px-6 flex items-center">
             <div className="max-w-3xl text-white">
               <span className="bg-blue-600 px-4 py-2 rounded-full text-sm font-semibold">
-               {homeData.heroBadge || " Myanmar Academic Planet"}
+                {homeData.heroBadge || " Myanmar Academic Planet"}
               </span>
 
               <h1 className="text-5xl md:text-7xl font-extrabold mt-6 leading-tight">
@@ -30,15 +30,24 @@ const Hero = ({ homeData, backendUrl }) => {
               </h1>
 
               <p className="mt-6 text-lg md:text-xl text-gray-200 leading-8">
-                {homeData.heroDescription || "Improve your English skills with experienced teacher, interactive lessons, and a supportive learning environment."}
-              
+                {homeData.heroDescription ||
+                  "Improve your English skills with experienced teacher, interactive lessons, and a supportive learning environment."}
               </p>
 
               {/* Buttons */}
               <div className="mt-10 flex flex-wrap gap-4">
-                <button className="bg-blue-600 hover:bg-blue-700 px-8 py-4 rounded-xl font-semibold transition duration-300">
+                <a
+                  href={
+                    homeData?.messengerPageId?.startsWith("http")
+                      ? homeData.messengerPageId
+                      : `https://m.me/${homeData?.messengerPageId || "Myanmar-Academic-Planet-1914656698655446"}`
+                  }
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-blue-600 hover:bg-blue-700 px-8 py-4 rounded-xl text-white font-medium flex items-center gap-2 transition inline-flex"
+                >
                   💬 Chat With Us
-                </button>
+                </a>
 
                 <Link
                   to="/placement-test"
