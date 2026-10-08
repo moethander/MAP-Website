@@ -76,6 +76,7 @@ const AddGallery = () => {
         bannerRef.current.value="";
       }
       alert("Banner updated successfully!");
+      window.location.reload();
     }catch(err){
       console.log(err.response?.data);
       console.log(err);
@@ -117,6 +118,7 @@ const AddGallery = () => {
     fetchData();
 
     alert("Images uploaded!");
+    window.location.reload();
   } catch (err) {
     console.log(err.response?.data);
     console.log(err);
@@ -138,6 +140,7 @@ const AddGallery = () => {
 
     await fetchData();
     alert("Video Uploaded!");
+    window.location.reload();
   };
 
   //upload utube
@@ -148,6 +151,7 @@ const AddGallery = () => {
     });
 
     alert("Youtube Saved!");
+    window.location.reload();
     setYoutube("");
     fetchData();
   };
@@ -173,6 +177,7 @@ const AddGallery = () => {
         // ✅ instantly remove from UI
         setItems((prev) => prev.filter((item) => item._id !== id));
         alert("Deleted successfully!");
+        window.location.reload();
       }
 
       console.log("Deleted:", data);
