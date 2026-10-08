@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
+import API , {baseURL} from "../../api";
 import AdminNavbar from '../../components/AdminNavbar';
 
 const AddGallery = () => {
@@ -15,7 +16,8 @@ const AddGallery = () => {
   const videoRef = useRef(null);
 
   const fetchGallery = async () => {
-    const res = await fetch("http://localhost:4000/api/gallery");
+    // const res = await fetch("http://localhost:4000/api/gallery");
+     const res = await fetch(`${baseURL}/api/gallery`);
     const data = await res.json();
     setItems(data);
   };
@@ -37,7 +39,8 @@ const AddGallery = () => {
   };
 
   const fetchData = async () => {
-    const res = await axios.get("http://localhost:4000/api/gallery");
+    // const res = await axios.get("http://localhost:4000/api/gallery");
+    const res = await API.get("/api/gallery");
     console.log(res.data);
     setItems(res.data);
   };
@@ -56,8 +59,11 @@ const AddGallery = () => {
       const formData = new FormData();
       formData.append("banner",banner);
 
-      const res = await axios.post(
-        "http://localhost:4000/api/gallery/banner",
+      // const res = await axios.post(
+      //   "http://localhost:4000/api/gallery/banner",
+
+       const res = await API.post(
+        "/api/gallery/banner",
         formData,{
           headers: {
             "Content-Type": "multipart/form-data",
@@ -91,8 +97,10 @@ const AddGallery = () => {
       formData.append("images", image);
     });
 
-    const res = await axios.post(
-      "http://localhost:4000/api/gallery/image",
+    // const res = await axios.post(
+    //   "http://localhost:4000/api/gallery/image",
+    const res = await API.post(
+      "/api/gallery/image",
       formData,
       {
         headers: {
@@ -120,7 +128,8 @@ const AddGallery = () => {
   const uploadVideo = async () => {
     const formData = new FormData();
     formData.append("video", video);
-    await axios.post("http://localhost:4000/api/gallery/video", formData);
+    // await axios.post("http://localhost:4000/api/gallery/video", formData);
+     await API.post("/api/gallery/video", formData);
     setVideo(null);
     
     if(videoRef.current){
@@ -133,7 +142,8 @@ const AddGallery = () => {
 
   //upload utube
   const saveYoutube = async () => {
-    await axios.post("http://localhost:4000/api/gallery/youtube", {
+    // await axios.post("http://localhost:4000/api/gallery/youtube", {
+     await API.post("/api/gallery/youtube", {
       url: youtube,
     });
 
@@ -144,14 +154,16 @@ const AddGallery = () => {
 
   //tog
   const toggleItem = async (id) => {
-    await axios.put(`http://localhost:4000/api/gallery/toggle/${id}`);
+    // await axios.put(`http://localhost:4000/api/gallery/toggle/${id}`);
+     await API.put(`/api/gallery/toggle/${id}`);
     fetchData();
   };
 
   //delete
   const deleteItem = async (id) => {
     try {
-      const res = await fetch(`http://localhost:4000/api/gallery/${id}`, {
+      // const res = await fetch(`http://localhost:4000/api/gallery/${id}`, {
+      const res = await fetch(`${baseURL}/api/gallery/${id}`, {
         method: "DELETE",
       });
 
@@ -272,7 +284,8 @@ const AddGallery = () => {
             <div key={item._id} className="border rounded-lg p-4 shadow">
               {item.type === "image" && (
                 <img
-                  src={`http://localhost:4000/${item.url}`}
+                  // src={`http://localhost:4000/${item.url}`}
+                   src={`${baseURL}/${item.url}`}
                   alt="gallery"
                   className="w-full h-52 object-cover rounded"
                 />
@@ -280,7 +293,8 @@ const AddGallery = () => {
 
               {item.type === "video" && (
                 <video controls className="w-full h-52 rounded">
-                  <source src={`http://localhost:4000/${item.url}`} />
+                  {/* <source src={`http://localhost:4000/${item.url}`} /> */}
+                  <source src={`${baseURL}/${item.url}`} />
                 </video>
               )}
 

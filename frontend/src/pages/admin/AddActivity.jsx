@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
+import API, { baseURL } from "../../api";
 import AdminNavbar from "../../components/AdminNavbar";
 
 const AddActivity = () => {
@@ -75,7 +76,8 @@ const AddActivity = () => {
   // Fetch Activities
   const fetchActivities = async () => {
     try {
-      const res = await axios.get("http://localhost:4000/api/activities");
+      // const res = await axios.get("http://localhost:4000/api/activities");
+      const res = await API.get("/api/activities");
       setActivities(res.data);
     } catch (err) {
       console.log(err);
@@ -84,7 +86,8 @@ const AddActivity = () => {
 
   const fetchBanner = async () => {
     try{
-      const res = await axios.get("http://localhost:4000/api/activities/banner");
+      // const res = await axios.get("http://localhost:4000/api/activities/banner");
+      const res = await API.get("/api/activities/banner");
       if(res.data?.bannerImage){
         setCurrentBanner(res.data.bannerImage);
       }
@@ -106,7 +109,9 @@ const AddActivity = () => {
       const formData = new FormData();
       formData.append("bannerImage", bannerFile);
 
-      await axios.post("http://localhost:4000/api/activities/banner", formData,{
+      // await axios.post("http://localhost:4000/api/activities/banner", formData,{
+
+      await API.post("/api/activities/banner", formData,{
         headers: {"Content-Type": "multipart/form-data"},
       });
 
@@ -139,8 +144,12 @@ const AddActivity = () => {
           formData.append("images", images[i]);
         }
 
-        const uploadRes = await axios.post(
-          "http://localhost:4000/api/upload",
+        // const uploadRes = await axios.post(
+        //   "http://localhost:4000/api/upload",
+        //   formData,
+
+         const uploadRes = await API.post(
+          "/api/upload",
           formData,
           {
             headers: {
@@ -161,13 +170,19 @@ const AddActivity = () => {
       };
 
       if (editId) {
-        await axios.put(
-          `http://localhost:4000/api/activities/${editId}`,
+        // await axios.put(
+        //   `http://localhost:4000/api/activities/${editId}`,
+        //   data
+        // );
+
+         await API.put(
+          `/api/activities/${editId}`,
           data
         );
         alert("Activity Updated Successfully!");
       } else {
-        await axios.post("http://localhost:4000/api/activities", data);
+        // await axios.post("http://localhost:4000/api/activities", data);
+        await API.post("/api/activities", data);
         alert("Activity Added Successfully!");
       }
 
@@ -224,7 +239,8 @@ const AddActivity = () => {
     if (!window.confirm("Delete this activity?")) return;
 
     try {
-      await axios.delete(`http://localhost:4000/api/activities/${id}`);
+      // await axios.delete(`http://localhost:4000/api/activities/${id}`);
+      await API.delete(`/api/activities/${id}`);
       fetchActivities();
     } catch (err) {
       console.log(err);
@@ -249,7 +265,8 @@ const AddActivity = () => {
             {bannerPreview?(
               <img src={bannerPreview} alt="Preview" className="w-full h-full object-cover"/>
             ) : currentBanner ? (
-              <img src={`http://localhost:4000/uploads/${currentBanner}`} 
+              // <img src={`http://localhost:4000/uploads/${currentBanner}`} 
+              <img src={`${baseURL}/uploads/${currentBanner}`} 
               alt="Banner" 
               className="w-full h-full object-cover"/>
             ) : (

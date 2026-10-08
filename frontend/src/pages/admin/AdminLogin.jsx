@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import API from '../../api';
 
 const AdminLogin = () => {
   const [email, setEmail] = useState('');
@@ -17,7 +18,8 @@ const AdminLogin = () => {
 
     try {
       // Backend API သို့ Login Request ပို့ခြင်း
-      const res = await axios.post('http://localhost:4000/api/admin/login', {
+      // const res = await axios.post('http://localhost:4000/api/admin/login', {
+      const res = await API.post('/api/admin/login', {
         email,
         password,
       });

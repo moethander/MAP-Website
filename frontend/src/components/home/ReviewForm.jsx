@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { FaStar } from "react-icons/fa";
+import API from "../../api";
 
 const ReviewForm = () => {
   const [formData, setFormData] = useState({
@@ -29,7 +30,8 @@ const ReviewForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:4000/api/reviews", formData);
+      // await axios.post("http://localhost:4000/api/reviews", formData);
+      await API.post("/api/reviews",formData);
       setMessage("Thank you! Your review is waiting for approval.");
       setFormData({
         name: "",

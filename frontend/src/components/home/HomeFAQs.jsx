@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import API from "../../api";
 
 const HomeFAQs = () => {
   const [faqs, setFaqs] = useState([]);
@@ -9,8 +10,10 @@ const HomeFAQs = () => {
 
   useEffect(() => {
    
-    axios
-      .get("http://localhost:4000/api/faqs")
+    // axios
+    //   .get("http://localhost:4000/api/faqs")
+    API
+      .get("/api/faqs")
       .then((res) => {
        
         setFaqs(res.data.slice(0, 4));

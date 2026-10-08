@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import API,{baseURL} from "../api";
 
 const Gallery = () => {
   const [items, setItems] = useState([]);
@@ -18,7 +19,8 @@ const Gallery = () => {
     if (path.startsWith("http://") || path.startsWith("https://")) return path;
     const normalizedPath = path.replace(/\\/g, "/");
     const cleanPath = normalizedPath.startsWith("/") ? normalizedPath : `/${normalizedPath}`;
-    return `http://localhost:4000${cleanPath}`;
+    // return `http://localhost:4000${cleanPath}`;
+    return `${baseURL}${cleanPath}`;
   };
 
   // Safe YouTube Embed Parser
@@ -44,8 +46,10 @@ const Gallery = () => {
   };
 
   useEffect(() => {
-    axios
-      .get("http://localhost:4000/api/gallery/banner")
+    // axios
+    //   .get("http://localhost:4000/api/gallery/banner")
+    API
+      .get("/api/gallery/banner")
       .then((res) => {
         if (res.data && res.data.url) {
           setBannerUrl(formatMediaUrl(res.data.url));
@@ -53,8 +57,10 @@ const Gallery = () => {
       })
       .catch((err) => console.error("Banner fetch error:", err));
 
-    axios
-      .get("http://localhost:4000/api/gallery")
+    // axios
+    //   .get("http://localhost:4000/api/gallery")
+     API
+      .get("/api/gallery")
       .then((res) => setItems(res.data || []))
       .catch((err) => console.error("Gallery items fetch error:", err));
   }, []);

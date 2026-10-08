@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import API from "../../api";
 import { Link } from "react-router-dom";
 import { FaCalendarAlt, FaArrowRight } from "react-icons/fa";
 
@@ -10,7 +11,9 @@ const ActivitiesPreview = () => {
 
   const fetchActivities = async () => {
     try {
-      const res = await axios.get("http://localhost:4000/api/activities");
+      // const res = await axios.get("http://localhost:4000/api/activities");
+      // const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/activities`);
+      const res = await API.get("/api/activities");
       const latestData = Array.isArray(res.data) ? res.data : [];
       setActivities(latestData.slice(0, 3));
     } catch (error) {

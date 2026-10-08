@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import API, { baseURL } from "../../api";
 import AdminNavbar from '../../components/AdminNavbar';
 
 const AdminTest = () => {
@@ -18,7 +19,8 @@ const AdminTest = () => {
   const fetchData = async () => {
     try {
       setLoading(true);
-      const res = await axios.get("http://localhost:4000/api/placement-test");
+      // const res = await axios.get("http://localhost:4000/api/placement-test");
+      const res = await API.get("/api/placement-test");
       if (res.data) {
         setData(res.data);
       }
@@ -32,7 +34,8 @@ const AdminTest = () => {
   const handleEdit = () => {
     setTerms(data?.terms || "");
     setTestLink(data?.testLink || "");
-    setPreviewImage(data?.bannerImage ? `http://localhost:4000/uploads/${data.bannerImage}` : "");
+    // setPreviewImage(data?.bannerImage ? `http://localhost:4000/uploads/${data.bannerImage}` : "");
+    setPreviewImage(data?.bannerImage ? `${baseURL}/uploads/${data.bannerImage}` : "");
     setBannerImage(null);
     setEditMode(true);
   };
@@ -57,7 +60,8 @@ const AdminTest = () => {
     }
 
     try {
-      await axios.post("http://localhost:4000/api/placement-test", formData, {
+      // await axios.post("http://localhost:4000/api/placement-test", formData, {
+       await API.post("/api/placement-test", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
 
@@ -114,7 +118,8 @@ const AdminTest = () => {
               <div className="h-44 w-full rounded-xl overflow-hidden border border-gray-200 dark:border-gray-700 bg-gray-100 dark:bg-gray-900">
                 {data?.bannerImage ? (
                   <img
-                    src={`http://localhost:4000/uploads/${data.bannerImage}`}
+                    // src={`http://localhost:4000/uploads/${data.bannerImage}`}
+                    src={`${baseURL}/uploads/${data.bannerImage}`}
                     alt="Banner Preview"
                     className="w-full h-full object-cover"
                   />

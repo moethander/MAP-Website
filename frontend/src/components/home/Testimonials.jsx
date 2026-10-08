@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { FaStar, FaQuoteLeft } from "react-icons/fa";
 import ReviewForm from "./ReviewForm";
+import API from "../../api";
 
 const Testimonials = () => {
   const [showForm, setShowForm] = useState(false);
@@ -9,7 +10,8 @@ const Testimonials = () => {
   
   const fetchReviews = async () => {
     try {
-      const res = await axios.get("http://localhost:4000/api/reviews");
+      // const res = await axios.get("http://localhost:4000/api/reviews");
+      const res = await API.get("/api/reviews");
       setReviews(res.data);
     } catch (error) {
       console.log(error);

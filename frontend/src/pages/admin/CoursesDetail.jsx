@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom"; // 👈 Link ကို Import လုပ်ပေးထားပါသည်
 import axios from "axios";
+import API, { baseURL } from "../../api";
 
 // 👈 FaArrowLeft နဲ့ FaBookOpen တို့ကို Import ထဲ ထည့်ပေးထားပါသည်
 import { 
@@ -19,8 +20,10 @@ function CoursesDetail() {
 
   useEffect(() => {
     setLoading(true);
-    axios
-      .get(`http://localhost:4000/api/courses/${id}`)
+    // axios
+    //   .get(`http://localhost:4000/api/courses/${id}`)
+    API
+      .get(`/api/courses/${id}`)
       .then((res) => {
         console.log("data", res.data);
         setCourse(res.data);
@@ -84,7 +87,8 @@ function CoursesDetail() {
           {/* Image */}
           {course.image && (
             <img
-              src={`http://localhost:4000/uploads/${course.image}`}
+              // src={`http://localhost:4000/uploads/${course.image}`}
+              src={`${baseURL}/uploads/${course.image}`}
               alt={course.name}
               className="w-full md:w-64 h-40 object-cover rounded-2xl border border-gray-200 dark:border-gray-700 shadow-sm"
             />

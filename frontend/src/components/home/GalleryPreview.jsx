@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import API,{baseURL} from "../../api";
 
 const GalleryPreview = () => {
   const [previewItems, setPreviewItems] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios
-      .get("http://localhost:4000/api/gallery")
+    // axios
+    //   .get("http://localhost:4000/api/gallery")
+    API
+      .get("/api/gallery")
       .then((res) => {
         
         const imagesOnly = res.data.filter((item) => item.type === "image");
@@ -58,7 +61,8 @@ const GalleryPreview = () => {
                 className="relative overflow-hidden rounded-3xl border border-gray-100 dark:border-gray-700/60 bg-white dark:bg-gray-800 aspect-square shadow-lg hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-300 group"
               >
                 <img
-                  src={`http://localhost:4000/${item.url}`}
+                  // src={`http://localhost:4000/${item.url}`}
+                  src={`${baseURL}/${item.url}`}
                   alt="Campus preview"
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 ease-in-out"
                 />

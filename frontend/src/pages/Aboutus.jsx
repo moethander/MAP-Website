@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { FaBookOpen, FaBullseye, FaEye, FaFlag } from "react-icons/fa";
+import API,{baseURL} from "../api";
 
 const AboutUs = () => {
   const [about, setAbout] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios
-      .get("http://localhost:4000/api/about")
+    // axios
+    //   .get("http://localhost:4000/api/about")
+    API
+      .get("/api/about")
       .then((res) => {
         setAbout(res.data);
         setLoading(false);
@@ -55,7 +58,8 @@ const AboutUs = () => {
             <img
               src={
                 about?.imageUrl
-                  ? `http://localhost:4000/${about.imageUrl}`
+                  // ? `http://localhost:4000/${about.imageUrl}`
+                  ? `${baseURL}/${about.imageUrl}`
                   : "https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=1470"
               }
               alt="Our Story"

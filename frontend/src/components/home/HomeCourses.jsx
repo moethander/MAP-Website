@@ -2,12 +2,14 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { FaArrowRight } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import API,{baseURL} from "../../api";
 
 const HomeCourses = () => {
   const [courses, setCourses] = useState([]);
   const fetchCourses = async () => {
     try {
-      const res = await axios.get("http://localhost:4000/api/courses");
+      // const res = await axios.get("http://localhost:4000/api/courses");
+      const res = await API.get("/api/courses");
       setCourses(res.data);
     } catch (error) {
       console.log(error);
@@ -57,7 +59,8 @@ const HomeCourses = () => {
             >
               {course.image && (
                 <img
-                  src={`http://localhost:4000/uploads/${course.image}`}
+                  // src={`http://localhost:4000/uploads/${course.image}`}
+                  src={`${baseURL}/uploads/${course.image}`}
                   alt={course.name}
                   className="w-full h-48 object-cover rounded-t-2xl"
                 />

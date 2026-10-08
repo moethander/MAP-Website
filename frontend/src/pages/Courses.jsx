@@ -1,14 +1,17 @@
 import { Link } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import API,{baseURL} from "../api";
 import { FaBookOpen, FaCalendarAlt, FaArrowRight, FaGraduationCap } from "react-icons/fa";
+import { baseURL } from "../api";
 
 const Courses = () => {
   const [courses, setCourse] = useState([]);
 
   useEffect(() => {
-    axios
-      .get("http://localhost:4000/api/courses")
+    API
+      // .get("http://localhost:4000/api/courses")
+      .get("/api/courses")
       .then((res) => setCourse(res.data))
       .catch((err) => console.log(err));
   }, []);
@@ -45,7 +48,8 @@ const Courses = () => {
                 <div className="w-full h-48 bg-gray-100 dark:bg-gray-700 overflow-hidden relative flex items-center justify-center">
                   {course.image ? (
                     <img
-                      src={`http://localhost:4000/uploads/${course.image}`}
+                      // src={`http://localhost:4000/uploads/${course.image}`}
+                      src={`${baseURL}/uploads/${course.image}`}
                       alt={course.name}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />

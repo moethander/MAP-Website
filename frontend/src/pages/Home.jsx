@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import API,{baseURL} from "../api.js";
 import {Link} from "react-router-dom";
 import { FaFacebookF, FaYoutube } from "react-icons/fa";
 import Hero from "../components/home/Hero.jsx";
@@ -18,12 +19,14 @@ const Home = () => {
   const [homeData, setHomeData] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  const backendUrl = "http://localhost:4000/";
+  // const backendUrl = "http://localhost:4000/";
+  const backendUrl = baseURL;
 
   useEffect(() => {
     const fetchHomeData = async () => {
       try {
-        const res = await axios.get("http://localhost:4000/api/home");
+        // const res = await axios.get("http://localhost:4000/api/home");
+        const res = await API.get("/api/home");
 
         if (res.data.success) {
           setHomeData(res.data.home);

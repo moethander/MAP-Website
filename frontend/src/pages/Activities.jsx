@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import API,{baseURL} from "../api";
 
 function Activities() {
   const [activities, setActivities] = useState([]);
@@ -11,11 +12,13 @@ function Activities() {
     const fetchData = async () => {
       try {
         // 1. Fetch Activities List
-        const resActivities = await axios.get("http://localhost:4000/api/activities");
+        // const resActivities = await axios.get("http://localhost:4000/api/activities");
+        const resActivities = await API.get("/api/activities");
         setActivities(resActivities.data);
 
         // 2. Fetch Hero Banner Image
-        const resBanner = await axios.get("http://localhost:4000/api/activities/banner");
+        // const resBanner = await axios.get("http://localhost:4000/api/activities/banner");
+        const resBanner= await API.get("/api/activities/banner");
         if (resBanner.data?.bannerImage) {
           setBanner(resBanner.data.bannerImage);
         }
@@ -55,7 +58,8 @@ function Activities() {
   const bannerSrc = banner
     ? banner.startsWith("http")
       ? banner
-      : `http://localhost:4000/uploads/${banner}`
+      // : `http://localhost:4000/uploads/${banner}`
+      : `${baseURL}/uploads/${banner}`
     : "https://images.unsplash.com/photo-1523050854058-8df90110c9f0?w=1600"; // Fallback Image
 
   return (
@@ -105,7 +109,8 @@ function Activities() {
                       src={
                         images[index]?.startsWith("http")
                           ? images[index]
-                          : `http://localhost:4000/uploads/${images[index]}`
+                          // : `http://localhost:4000/uploads/${images[index]}`
+                          : `${baseURL}/uploads/${images[index]}`
                       }
                       alt={activity.title}
                       className="w-full h-full object-cover transition-all duration-300"

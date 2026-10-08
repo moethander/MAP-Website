@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
+import API from '../../api';
 import AdminNavbar from '../../components/AdminNavbar';
 
 const AdminFAQ = () => {
@@ -28,7 +29,8 @@ const AdminFAQ = () => {
     };
 
   const fetchFAQs = async () => {
-  const res = await axios.get("http://localhost:4000/api/faqs");
+  // const res = await axios.get("http://localhost:4000/api/faqs");
+   const res = await API.get("/api/faqs");
   setFaqs(res.data);
 };
 
@@ -42,14 +44,18 @@ const AdminFAQ = () => {
     
    const handleSubmit = async () => {
   if (editId) {
-    await axios.put(
-      `http://localhost:4000/api/faqs/${editId}`,
+    // await axios.put(
+    //   `http://localhost:4000/api/faqs/${editId}`,
+    await API.put(
+      `/api/faqs/${editId}`,
       formData
     );
     showAlert("FAQ updated successfully!", "success");
   } else {
-    await axios.post(
-      "http://localhost:4000/api/faqs",
+    // await axios.post(
+    //   "http://localhost:4000/api/faqs",
+     await API.post(
+      "/api/faqs",
       formData
     );
     showAlert("FAQ added successfully!", "success");
@@ -72,8 +78,11 @@ const AdminFAQ = () => {
 };
 
   const handleDelete = async (id) => {
-  await axios.delete(
-    `http://localhost:4000/api/faqs/${id}`
+  // await axios.delete(
+  //   `http://localhost:4000/api/faqs/${id}`
+  // );
+  await API.delete(
+    `/api/faqs/${id}`
   );
   showAlert("FAQ Delected successfully!", "error");
 

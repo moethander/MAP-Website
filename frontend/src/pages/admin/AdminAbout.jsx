@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import API, { baseURL } from "../../api";
 import AdminNavbar from "../../components/AdminNavbar";
 
 const AdminAbout = () => {
@@ -17,8 +18,10 @@ const AdminAbout = () => {
 
   useEffect(() => {
     // ယူထားပြီးသား Data များကို Form ထဲ Fetch လုပ်မည်
-    axios
-      .get("http://localhost:4000/api/about")
+    // axios
+    //   .get("http://localhost:4000/api/about")
+    API
+      .get("/api/about")
       .then((res) => {
         if (res.data) {
           setFormData({
@@ -29,8 +32,11 @@ const AdminAbout = () => {
           });
 
           // DB ထဲတွင် ပုံဟောင်းရှိပါက Preview ပြရန် backend URL ချိတ်ဆက်ခြင်း
+          // if (res.data.imageUrl) {
+          //   setPreviewImage(`http://localhost:4000/${res.data.imageUrl}`);
+          // }
           if (res.data.imageUrl) {
-            setPreviewImage(`http://localhost:4000/${res.data.imageUrl}`);
+            setPreviewImage(`${baseURL}/${res.data.imageUrl}`);
           }
         }
       })
@@ -68,7 +74,8 @@ const AdminAbout = () => {
     }
 
     try {
-      const res = await axios.put("http://localhost:4000/api/about", data, {
+      // const res = await axios.put("http://localhost:4000/api/about", data, {
+       const res = await API.put("/api/about", data, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -79,7 +86,8 @@ const AdminAbout = () => {
 
       // Update အဆင်ပြေသွားပါက Response မှ ပုံ URL ကို Preview အဖြစ် အသစ်ပြန်သတ်မှတ်မည်
       if (res.data.about?.imageUrl) {
-        setPreviewImage(`http://localhost:4000/${res.data.about.imageUrl}`);
+        // setPreviewImage(`http://localhost:4000/${res.data.about.imageUrl}`);
+        setPreviewImage(`${baseURL}/${res.data.about.imageUrl}`);
       }
     } catch (err) {
       const errorMsg = err.response?.data?.message || err.message;

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import API from "../../api";
 import AdminNavbar from '../../components/AdminNavbar';
 
 const AdminAddLevel=() =>{
@@ -17,7 +18,8 @@ const AdminAddLevel=() =>{
   });
 
   useEffect(() => {
-    axios.get("http://localhost:4000/api/courses")
+    // axios.get("http://localhost:4000/api/courses")
+    API.get("/api/courses")
       .then(res => setCourses(res.data))
       .catch((err)=>console.log(err));
   }, []);
@@ -26,16 +28,22 @@ const AdminAddLevel=() =>{
     e.preventDefault();
 
     if(editingLevelId){
-      await axios.put(
-        `http://localhost:4000/api/courses/${selectedCourse}/levels/${editingLevelId}`, level
+      // await axios.put(
+      //   `http://localhost:4000/api/courses/${selectedCourse}/levels/${editingLevelId}`, level
+      // );
+      await API.put(
+        `/api/courses/${selectedCourse}/levels/${editingLevelId}`, level
       );
 
     alert("Level added!");
 
     setEditingLevelId(null);
     }else{
-      await axios.post(
-        `http://localhost:4000/api/courses/${selectedCourse}/levels`, level
+      // await axios.post(
+      //   `http://localhost:4000/api/courses/${selectedCourse}/levels`, level
+      // );
+      await API.post(
+        `/api/courses/${selectedCourse}/levels`, level
       );
 
       alert("Level Added!");
@@ -65,13 +73,16 @@ const handleEdit = (lvl) => {
 //deletecall
 const handleDelete = async (levelId) => {
   try{
-    await axios.delete(
-     `http://localhost:4000/api/courses/${selectedCourse}/levels/${levelId}`
+    // await axios.delete(
+    //  `http://localhost:4000/api/courses/${selectedCourse}/levels/${levelId}`
+    await API.delete(
+     `/api/courses/${selectedCourse}/levels/${levelId}`
   );
   alert("Level Delected!");
 
   //courses list refresh
-  const res = await axios.get("http://localhost:4000/api/courses");
+  // const res = await axios.get("http://localhost:4000/api/courses");
+   const res = await API.get("/api/courses");
   setCourses(res.data);
 
   }catch(error){

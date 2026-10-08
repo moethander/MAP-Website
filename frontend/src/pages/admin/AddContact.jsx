@@ -1,5 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
+import API, { baseURL } from "../../api";
+
 import AdminNavbar from '../../components/AdminNavbar';
 
 
@@ -18,7 +20,8 @@ const AddContact = () => {
   // ---------------- FETCH DATA ----------------
   const fetchContact = async () => {
     try {
-      const res = await axios.get("http://localhost:4000/api/contact");
+      // const res = await axios.get("http://localhost:4000/api/contact");
+       const res = await API.get("/api/contact");
       if (res.data) {
         setOldData(res.data); 
       }
@@ -55,7 +58,8 @@ const AddContact = () => {
       formData.append("address", address);
       formData.append("map", map);
 
-      await axios.post("http://localhost:4000/api/contact", formData);
+      // await axios.post("http://localhost:4000/api/contact", formData);
+      await API.post("/api/contact", formData);
 
       alert("Contact Saved");
 
@@ -164,7 +168,9 @@ const AddContact = () => {
             {banner ? (
               <img src={URL.createObjectURL(banner)} alt="new banner" className="w-full h-48 object-cover rounded" />
             ) : oldData?.banner ? (
-              <img src={`http://localhost:4000/${oldData.banner}`} alt="old banner" className="w-full h-48 object-cover rounded" />
+              // <img src={`http://localhost:4000/${oldData.banner}`} alt="old banner" className="w-full h-48 object-cover rounded" />
+
+               <img src={`${baseURL}/${oldData.banner}`} alt="old banner" className="w-full h-48 object-cover rounded" />
             ) : (
               <p>No banner selected</p>
             )}

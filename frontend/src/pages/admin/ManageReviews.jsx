@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import API from "../../api";
 import { FaStar } from "react-icons/fa";
 import AdminNavbar from "../../components/AdminNavbar";
 
@@ -8,8 +9,11 @@ const ManageReviews = () => {
   const fetchReviews = async()=>{
 
     try{
-      const res = await axios.get(
-        "http://localhost:4000/api/reviews/all"
+      // const res = await axios.get(
+      //   "http://localhost:4000/api/reviews/all"
+      // );
+      const res = await API.get(
+        "/api/reviews/all"
       );
 
       console.log(res.data);
@@ -26,8 +30,11 @@ const ManageReviews = () => {
 
   const approveReview = async(id)=>{
     try{
-      await axios.put(
-        `http://localhost:4000/api/reviews/${id}/approve`
+      // await axios.put(
+      //   `http://localhost:4000/api/reviews/${id}/approve`
+      // );
+      await API.put(
+        `/api/reviews/${id}/approve`
       );
       fetchReviews();
     }catch(error){
@@ -37,8 +44,11 @@ const ManageReviews = () => {
 
   const deleteReview = async(id)=>{
     try{
-      await axios.delete(
-        `http://localhost:4000/api/reviews/${id}`
+      // await axios.delete(
+      //   `http://localhost:4000/api/reviews/${id}`
+      // );
+       await API.delete(
+        `/api/reviews/${id}`
       );
       fetchReviews();
     }catch(error){

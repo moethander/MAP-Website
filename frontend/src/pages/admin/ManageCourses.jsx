@@ -1,5 +1,6 @@
 import React, { useState , useEffect } from 'react'
 import axios from 'axios';
+import API, { baseURL } from '../../api';
 import AdminNavbar from '../../components/AdminNavbar';
 
 const ManageCourses = () => {
@@ -50,8 +51,10 @@ const ManageCourses = () => {
         }
 
           if(editId){
-           await axios.put(
-             `http://localhost:4000/api/courses/${editId}`,
+          //  await axios.put(
+          //    `http://localhost:4000/api/courses/${editId}`,
+          await API.put(
+             `/api/courses/${editId}`,
              formData,
              {
                headers: {
@@ -61,7 +64,8 @@ const ManageCourses = () => {
            );
             alert("Course updated successfully!");
           }else{
-            await axios.post("http://localhost:4000/api/courses", formData, {
+            // await axios.post("http://localhost:4000/api/courses", formData, {
+             await API.post("/api/courses", formData, {
               headers: {
                 "Content-Type": "multipart/form-data",
               },
@@ -93,8 +97,11 @@ const ManageCourses = () => {
 
   const fetchCourses = async () => {
   try {
-    const res = await axios.get(
-      "http://localhost:4000/api/courses"
+    // const res = await axios.get(
+    //   "http://localhost:4000/api/courses"
+    // );
+     const res = await API.get(
+      "/api/courses"
     );
 
     setCourses(res.data);
@@ -106,8 +113,11 @@ const ManageCourses = () => {
     const handleDelete = async (id) => {
       if(!window.confirm("Are u sure?"))return;
   try {
-    await axios.delete(
-      `http://localhost:4000/api/courses/${id}`
+    // await axios.delete(
+    //   `http://localhost:4000/api/courses/${id}`
+    // );
+    await API.delete(
+      `/api/courses/${id}`
     );
     setCourses(
       courses.filter((course) => course._id !== id)
@@ -169,7 +179,8 @@ const ManageCourses = () => {
               <p className="text-sm text-gray-600">Current Image:</p>
 
               <img
-                src={`http://localhost:4000/uploads/${course.image}`}
+                // src={`http://localhost:4000/uploads/${course.image}`}
+                src={`${baseURL}/uploads/${course.image}`}
                 alt="current"
                 className="
                    w-32 h-32 object-cover rounded-lg mt-2"
@@ -229,7 +240,8 @@ const ManageCourses = () => {
               >
                 {course.image && (
                   <img
-                    src={`http://localhost:4000/uploads/${course.image}`}
+                    // src={`http://localhost:4000/uploads/${course.image}`}
+                     src={`${baseURL}/uploads/${course.image}`}
                     alt={course.name}
                     className="w-full h-48 object-cover rounded-lg mb-4"
                   />

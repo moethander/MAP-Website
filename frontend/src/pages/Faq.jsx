@@ -1,111 +1,5 @@
-// import axios from "axios";
-// import React, { useEffect, useState } from "react";
-// import { FiChevronDown } from "react-icons/fi";
-
-// const Faq = () => {
-//   const [faqs, setFaqs] = useState([]);
-//   const [openIndex, setOpenIndex] = useState(null);
-//   const [loading, setLoading] = useState(true);
-
-//   useEffect(() => {
-//     axios
-//       .get("http://localhost:4000/api/faqs")
-//       .then((res) => {
-//         setFaqs(res.data);
-//       })
-//       .catch((err) => console.log(err))
-//       .finally(() => setLoading(false));
-//   }, []);
-
-//   return (
-//     <div className="min-h-screen bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-100 py-16 px-5 transition-colors duration-300">
-//       <div className="max-w-4xl mx-auto">
-        
-//         {/* Heading */}
-//         <div className="text-center mb-12">
-//           <h1 className="text-4xl md:text-5xl font-bold text-blue-600 dark:text-blue-400">
-//             Frequently Asked Questions
-//           </h1>
-
-//           <p className="text-gray-600 dark:text-gray-300 mt-4 text-base md:text-lg">
-//             Find answers to the questions that are most commonly asked.
-//           </p>
-//         </div>
-
-//         {/* Loading State */}
-//         {loading && (
-//           <div className="text-center text-gray-500 dark:text-gray-400 py-10 font-medium">
-//             Loading FAQs...
-//           </div>
-//         )}
-
-//         {/* FAQ List */}
-//         {!loading && (
-//           <div className="space-y-4">
-//             {faqs.map((faq, index) => {
-//               const isOpen = openIndex === index;
-
-//               return (
-//                 <div
-//                   key={faq._id || index}
-//                   className="bg-white dark:bg-gray-800 rounded-2xl shadow-md border border-gray-100 dark:border-gray-700/60 overflow-hidden transition-all duration-300 hover:shadow-lg"
-//                 >
-//                   {/* Question Button */}
-//                   <button
-//                     onClick={() => setOpenIndex(isOpen ? null : index)}
-//                     className="w-full flex justify-between items-center px-6 py-5 text-left focus:outline-none group"
-//                   >
-//                     <h2
-//                       className={`text-lg font-semibold transition-colors duration-200 leading-relaxed pr-4 ${
-//                         isOpen
-//                           ? "text-blue-600 dark:text-blue-400"
-//                           : "text-gray-800 dark:text-gray-100 group-hover:text-blue-600 dark:group-hover:text-blue-400"
-//                       }`}
-//                     >
-//                       {faq.question}
-//                     </h2>
-
-//                     <div
-//                       className={`p-2 rounded-full bg-blue-50 dark:bg-gray-700/50 text-blue-600 dark:text-blue-400 transition-transform duration-300 shrink-0 ${
-//                         isOpen ? "rotate-180 bg-blue-600 !text-white" : ""
-//                       }`}
-//                     >
-//                       <FiChevronDown className="text-xl" />
-//                     </div>
-//                   </button>
-
-//                   {/* Answer Accordion */}
-//                   <div
-//                     className={`transition-all duration-300 ease-in-out overflow-hidden ${
-//                       isOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
-//                     }`}
-//                   >
-//                     <div className="px-6 pb-6 pt-2 border-t border-gray-100 dark:border-gray-700/50">
-//                       <p className="text-gray-600 dark:text-gray-300 leading-relaxed text-base pt-2">
-//                         {faq.answer}
-//                       </p>
-//                     </div>
-//                   </div>
-//                 </div>
-//               );
-//             })}
-//           </div>
-//         )}
-
-//         {/* Empty State */}
-//         {!loading && faqs.length === 0 && (
-//           <div className="text-center text-gray-500 dark:text-gray-400 py-10 bg-white dark:bg-gray-800 rounded-2xl shadow">
-//             No FAQs available right now.
-//           </div>
-//         )}
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default Faq;
-
 import axios from "axios";
+import API from "../api";
 import React, { useEffect, useState } from "react";
 import { FiChevronDown, FiHelpCircle } from "react-icons/fi";
 
@@ -115,8 +9,10 @@ const Faq = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios
-      .get("http://localhost:4000/api/faqs")
+    // axios
+    //   .get("http://localhost:4000/api/faqs")
+    API
+      .get("/api/faqs")
       .then((res) => {
         setFaqs(res.data);
       })

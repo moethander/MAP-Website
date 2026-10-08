@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import API,{baseURL} from "../api";
 import {
   FaMapMarkerAlt,
   FaPhoneAlt,
@@ -14,7 +15,8 @@ const Contact = () => {
   useEffect(() => {
     const fetchContact = async () => {
       try {
-        const res = await axios.get("http://localhost:4000/api/contact");
+        // const res = await axios.get("http://localhost:4000/api/contact");
+        const res = await API.get("/api/contact");
         setContact(res.data);
       } catch (error) {
         console.error("Error fetching contact data:", error);
@@ -43,7 +45,8 @@ const Contact = () => {
       {contact.banner && (
         <section className="relative h-[320px]">
           <img
-            src={`http://localhost:4000/${contact.banner}`}
+            // src={`http://localhost:4000/${contact.banner}`}
+            src={`${baseURL}/${contact.banner}`}
             alt="Contact Banner"
             className="w-full h-full object-cover object-bottom"
           />

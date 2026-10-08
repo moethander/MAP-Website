@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import API from "../../api";
 import AdminNavbar from "../../components/AdminNavbar";
 
 const ManageHome = () => {
@@ -57,7 +58,8 @@ const ManageHome = () => {
   useEffect(() => {
     const fetchHomeData = async () => {
       try {
-        const res = await axios.get("http://localhost:4000/api/home");
+        // const res = await axios.get("http://localhost:4000/api/home");
+        const res = await API.get("/api/home");
         if (res.data.success && res.data.home) {
           setFormData((prev)=>({
             ...prev,
@@ -136,8 +138,10 @@ const ManageHome = () => {
   if (formData.missionImage instanceof File) formDataToSend.append("missionImage", formData.missionImage);
 
   try {
-    const res = await axios.post(
-      "http://localhost:4000/api/home",
+    // const res = await axios.post(
+    //   "http://localhost:4000/api/home",
+     const res = await API.post(
+      "/api/home",
       formDataToSend,
       {
         headers: {

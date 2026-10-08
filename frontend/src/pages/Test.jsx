@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import API,{baseURL} from "../api";
 
 const Test = () => {
   const [terms, setTerms] = useState("");
@@ -14,7 +15,9 @@ const Test = () => {
   const fetchPlacementTest = async () => {
     try {
       setLoading(true);
-      const res = await axios.get("http://localhost:4000/api/placement-test");
+      // const res = await axios.get("http://localhost:4000/api/placement-test");
+      const res = await API.get("/api/placement-test");
+
 
       if (res.data) {
         setTerms(res.data.terms || "");
@@ -44,7 +47,8 @@ const Test = () => {
         <img
           src={
             bannerImage
-              ? `http://localhost:4000/uploads/${bannerImage}`
+              // ? `http://localhost:4000/uploads/${bannerImage}`
+              ? `${baseURL}/uploads/${bannerImage}`
               : "https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=1600"
           }
           alt="Placement Test Background"
