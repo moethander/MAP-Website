@@ -186,6 +186,14 @@ const AddGallery = () => {
     }
   };
 
+  const formatMediaUrl = (path) => {
+    if (!path) return "";
+    if (path.startsWith("http://") || path.startsWith("https://")) return path;
+    const normalizedPath = path.replace(/\\/g, "/");
+    const cleanPath = normalizedPath.startsWith("/") ? normalizedPath : `/${normalizedPath}`;
+    return `${baseURL}${cleanPath}`;
+  };
+
   return (
     <>
   <AdminNavbar/>
@@ -290,7 +298,8 @@ const AddGallery = () => {
               {item.type === "image" && (
                 <img
                   // src={`http://localhost:4000/${item.url}`}
-                   src={`${baseURL}/${item.url}`}
+                  //  src={`${baseURL}/${item.url}`}
+                  src={formatMediaUrl(item.url)}
                   alt="gallery"
                   className="w-full h-52 object-cover rounded"
                 />
@@ -298,8 +307,7 @@ const AddGallery = () => {
 
               {item.type === "video" && (
                 <video controls className="w-full h-52 rounded">
-                  {/* <source src={`http://localhost:4000/${item.url}`} /> */}
-                  <source src={`${baseURL}/${item.url}`} />
+                  <source src={formatMediaUrl(item.url)} />
                 </video>
               )}
 
