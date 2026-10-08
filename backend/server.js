@@ -24,10 +24,13 @@ const port = process.env.PORT || 4000;
 
 // Middleware
 app.use(cors({
-  origin: 'https://m-a-p-english-center.vercel.app/',
+  origin: [
+    'https://m-a-p-english-center.vercel.app',
+    'https://m-a-p-english-center.vercel.app/'
+  ],
   credentials: true,
-  methods: ['GET','POST','PUT','DELETE'],
-  allowedHeaders: ['Content-Type','Authorization']
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization']
 }));
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
