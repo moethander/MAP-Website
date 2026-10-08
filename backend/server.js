@@ -70,6 +70,17 @@ app.get('/', (req,res)=>{
     res.send('API WORK');
 });
 
-app.listen(port, () => {
-    console.log(`Server Started on http://localhost:${port}`)
-})
+// Local မှာ အလုပ်လုပ်ဖို့အတွက် app.listen ကို condition ထည့်ပါ
+if (process.env.NODE_ENV !== 'production') {
+  const port = process.env.PORT || 4000;
+  app.listen(port, () => {
+    console.log(`Server Started on http://localhost:${port}`);
+  });
+}
+
+// Vercel (Production) အတွက် app ကို export ထုတ်ပေးပါ
+export default app;
+
+// app.listen(port, () => {
+//     console.log(`Server Started on http://localhost:${port}`)
+// })

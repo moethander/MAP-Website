@@ -5,4 +5,4 @@ export const connectDB = async () => {
     .then(() => (console.log('DB connected')))
 }
 //map-website-production.up.railway.app
-//mongodb+srv://myominhtaik761_db_user:SZzcfeEwda7qw5ih@cluster0.qtcvhko.mongodb.net/?appName=Cluster0
+// mongodb+srv://myominhtaik761_db_user:SZzcfeEwda7qw5ih@cluster0.qtcvhko.mongodb.net/?appName=Cluster0
