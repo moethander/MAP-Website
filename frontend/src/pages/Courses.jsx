@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import API,{baseURL} from "../api";
 import { FaBookOpen, FaCalendarAlt, FaArrowRight, FaGraduationCap } from "react-icons/fa";
-import { baseURL } from "../api";
+
 
 const Courses = () => {
   const [courses, setCourse] = useState([]);
