@@ -17,6 +17,7 @@ const AdminNavbar = () => {
                     <NavLink to = "/admin/home" className="hover:text-yellow-300">Home</NavLink>
                     <NavLink to = "/admin/reviews" className="hover:text-yellow-300">Manage Reviews</NavLink>
                     <NavLink to = "/admin/manage-courses" className="hover:text-yellow-300">Courses</NavLink>
+                    <NavLink to = "/admin/add-level" className="hover:text-yellow-300">Add Level</NavLink>
                     <NavLink to = "/admin/add-test" className="hover:text-yellow-300">Test</NavLink>
                     <NavLink to = "/admin/add-activity" className="hover:text-yellow-300">Activities</NavLink> 
                     <NavLink to = "/admin/add-gallery" className="hover:text-yellow-300">Gallery</NavLink>

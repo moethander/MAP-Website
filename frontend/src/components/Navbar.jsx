@@ -42,6 +42,7 @@ const Navbar = () => {
     { name: "Gallery", path: "/gallery" },
     { name: "FAQs", path: "/faq" },
     { name: "About Us", path: "/about"},
+    { name: "Contact Us", path: "/contact" },
   ];
 
   return (
@@ -101,7 +102,7 @@ const Navbar = () => {
       </button>
 
       {/* Search Button */}
-      <button
+      {/* <button
         onClick={() => setIsSearchOpen(!isSearchOpen)}
         className={`text-lg sm:text-xl w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center rounded-full active:scale-95 transition-all ${
           isSearchOpen 
@@ -110,7 +111,7 @@ const Navbar = () => {
         }`}
       >
         {isSearchOpen ? <FaTimes /> : <FaSearch />}
-      </button>
+      </button> */}
 
       {/* Hamburger Menu Button hidden  */}
       <button
@@ -123,7 +124,7 @@ const Navbar = () => {
     </div>
 
     {/* 🔍 Mobile Search Field Input Overlay */}
-    {isSearchOpen && (
+    {/* {isSearchOpen && (
       <div className="absolute top-20 left-0 right-0 px-4 sm:px-6 lg:left-auto lg:right-6 lg:w-64 z-50 animate-fadeIn">
         <input
           type="text"
@@ -131,7 +132,7 @@ const Navbar = () => {
           className="w-full px-4 py-2.5 rounded-full border border-gray-250 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-800 dark:text-white outline-none shadow-xl focus:border-blue-500"
         />
       </div>
-    )}
+    )} */}
 
   </div>
 

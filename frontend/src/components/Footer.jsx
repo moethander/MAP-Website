@@ -88,6 +88,27 @@ const Footer = ({ homeData }) => {
                 Placement Test
               </Link>
             </li>
+
+             <li>
+              <Link
+                to="/activities"
+                onClick={() => window.scrollTo(0, 0)}
+                className="hover:text-blue-400 transition-colors duration-200"
+              >
+                Activities
+              </Link>
+            </li>
+
+             <li>
+              <Link
+                to="/gallery"
+                onClick={() => window.scrollTo(0, 0)}
+                className="hover:text-blue-400 transition-colors duration-200"
+              >
+               Gallery
+              </Link>
+            </li>
+
             <li>
               <Link
                 to="/faq"

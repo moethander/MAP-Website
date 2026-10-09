@@ -87,7 +87,7 @@ return (
   <>
   <AdminNavbar/>
   <div className="max-w-4xl mx-auto p-6">
-      <h1 style={{textAlign: "center", fontWeight: "bold"}} className="">Add Class</h1>
+      <h1 style={{textAlign: "center", fontWeight: "bold"}} className="">Add Level</h1>
 
     {/* Select Course */}
     <form onSubmit={handleSubmit} className="bg-white shadow-lg rounded-xl p-6 space-y-4">
