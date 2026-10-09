@@ -39,14 +39,22 @@ const Contact = () => {
   // Clean phone number for tel: link (removes spaces, dashes, etc.)
   const formattedPhone = contact.phone ? contact.phone.replace(/[^0-9+]/g, "") : "";
 
+  // Safe file path formatter
+  const formatMediaUrl = (path) => {
+    if (!path) return "";
+    if (path.startsWith("http://") || path.startsWith("https://")) return path;
+    const normalizedPath = path.replace(/\\/g, "/");
+    const cleanPath = normalizedPath.startsWith("/") ? normalizedPath : `/${normalizedPath}`;
+    return `${baseURL}${cleanPath}`;
+  };
+
   return (
     <div className="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-100 min-h-screen transition-colors duration-300">
       {/* Banner */}
       {contact.banner && (
         <section className="relative h-[320px]">
           <img
-            // src={`http://localhost:4000/${contact.banner}`}
-            src={`${baseURL}/${contact.banner}`}
+            src={formatMediaUrl(contact.banner)}
             alt="Contact Banner"
             className="w-full h-full object-cover object-bottom"
           />
@@ -62,7 +70,6 @@ const Contact = () => {
       {/* Contact Info Grid */}
       <div className="max-w-6xl mx-auto px-5 py-16">
         <div className="grid md:grid-cols-2 gap-10 items-stretch">
-          
           {/* Address Card */}
           <div className="bg-white dark:bg-gray-800 rounded-3xl shadow-lg p-8 hover:shadow-2xl transition duration-300 flex flex-col justify-between border border-gray-100 dark:border-gray-700/50">
             <div>
@@ -70,7 +77,9 @@ const Contact = () => {
                 <div className="bg-blue-600 dark:bg-blue-500 text-white w-14 h-14 rounded-2xl flex items-center justify-center text-2xl shadow-md shrink-0">
                   <FaMapMarkerAlt />
                 </div>
-                <h2 className="text-3xl font-bold text-gray-800 dark:text-white">Our Address</h2>
+                <h2 className="text-3xl font-bold text-gray-800 dark:text-white">
+                  Our Address
+                </h2>
               </div>
               <p className="text-gray-600 dark:text-gray-300 leading-relaxed text-lg">
                 {contact.address || "No address provided."}
@@ -85,7 +94,9 @@ const Contact = () => {
                 <div className="bg-blue-600 dark:bg-blue-500 text-white w-14 h-14 rounded-2xl flex items-center justify-center text-2xl shadow-md shrink-0">
                   <FaPhoneAlt />
                 </div>
-                <h2 className="text-3xl font-bold text-gray-800 dark:text-white">Call Us</h2>
+                <h2 className="text-3xl font-bold text-gray-800 dark:text-white">
+                  Call Us
+                </h2>
               </div>
               <p className="text-gray-600 dark:text-gray-300 mb-6 text-lg">
                 Have questions? Feel free to contact us.
@@ -108,7 +119,9 @@ const Contact = () => {
         {/* Social Links */}
         {(contact.facebook || contact.youtube) && (
           <div className="bg-white dark:bg-gray-800 rounded-3xl shadow-lg p-8 mt-10 text-center border border-gray-100 dark:border-gray-700/50 transition duration-300">
-            <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-6">Follow Us</h2>
+            <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-6">
+              Follow Us
+            </h2>
             <div className="flex justify-center gap-6">
               {contact.facebook && (
                 <a
