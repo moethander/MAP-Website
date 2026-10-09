@@ -8,6 +8,15 @@ function Activities() {
   const [loading, setLoading] = useState(true);
   const [currentImage, setCurrentImage] = useState({});
 
+  // Safe file path formatter
+const formatMediaUrl = (path) => {
+  if (!path) return "";
+  if (path.startsWith("http://") || path.startsWith("https://")) return path;
+  const normalizedPath = path.replace(/\\/g, "/");
+  const cleanPath = normalizedPath.startsWith("/") ? normalizedPath : `/${normalizedPath}`;
+  return `${baseURL}${cleanPath}`;
+};
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -55,12 +64,9 @@ function Activities() {
   }
 
   // 🎯 Banner Image URL Format စစ်ဆေးခြင်း
-  const bannerSrc = banner
-    ? banner.startsWith("http")
-      ? banner
-      // : `http://localhost:4000/uploads/${banner}`
-      : `${baseURL}/uploads/${banner}`
-    : "https://images.unsplash.com/photo-1523050854058-8df90110c9f0?w=1600"; // Fallback Image
+  const bannerSrc = banner 
+  ? formatMediaUrl(banner) 
+  : "https://images.unsplash.com/photo-1523050854058-8df90110c9f0?w=1600";
 
   return (
     <div className="bg-gray-50 dark:bg-gray-900 min-h-screen text-gray-800 dark:text-gray-100 transition-colors duration-300">
@@ -106,12 +112,7 @@ function Activities() {
                 <div className="relative h-60 w-full bg-gray-100 dark:bg-gray-900 overflow-hidden group">
                   {images.length > 0 ? (
                     <img
-                      src={
-                        images[index]?.startsWith("http")
-                          ? images[index]
-                          // : `http://localhost:4000/uploads/${images[index]}`
-                          : `${baseURL}/uploads/${images[index]}`
-                      }
+                      src={formatMediaUrl(images[index])}
                       alt={activity.title}
                       className="w-full h-full object-cover transition-all duration-300"
                     />
