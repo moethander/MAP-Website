@@ -42,7 +42,7 @@ const Navbar = () => {
     { name: "Gallery", path: "/gallery" },
     { name: "FAQs", path: "/faq" },
     { name: "About Us", path: "/about"},
-    { name: "Contact Us", path: "/contact" },
+  
   ];
 
   return (
@@ -159,12 +159,16 @@ const Navbar = () => {
       ))}
       <div className="p-4">
         <Link
-          to="/contact"
-          onClick={() => setIsMenuOpen(false)}
-          className="block text-center bg-blue-700 hover:bg-blue-800 text-white py-3 rounded-full font-medium shadow-md transition-colors"
-        >
-          Contact Us
-        </Link>
+            to="/contact"
+            onClick={() => setIsMenuOpen(false)}
+            className={`block px-6 py-4 border-b border-gray-50 dark:border-gray-800/50 hover:bg-blue-50/50 dark:hover:bg-gray-800 ${
+              location.pathname === "/contact"
+                ? "text-blue-700 dark:text-blue-400 font-semibold"
+                : "text-gray-700 dark:text-gray-200"
+            }`}
+          >
+            Contact Us
+          </Link>
       </div>
     </div>
   </div>
