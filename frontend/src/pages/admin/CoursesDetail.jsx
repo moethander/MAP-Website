@@ -3,6 +3,15 @@ import { useParams, Link } from "react-router-dom"; // 👈 Link ကို Impor
 import axios from "axios";
 import API, { baseURL } from "../../api";
 
+// Safe file path formatter
+const formatMediaUrl = (path) => {
+  if (!path) return "";
+  if (path.startsWith("http://") || path.startsWith("https://")) return path;
+  const normalizedPath = path.replace(/\\/g, "/");
+  const cleanPath = normalizedPath.startsWith("/") ? normalizedPath : `/${normalizedPath}`;
+  return `${baseURL}${cleanPath}`;
+};
+
 // 👈 FaArrowLeft နဲ့ FaBookOpen တို့ကို Import ထဲ ထည့်ပေးထားပါသည်
 import { 
   FaGraduationCap, 
@@ -20,8 +29,6 @@ function CoursesDetail() {
 
   useEffect(() => {
     setLoading(true);
-    // axios
-    //   .get(`http://localhost:4000/api/courses/${id}`)
     API
       .get(`/api/courses/${id}`)
       .then((res) => {
@@ -87,8 +94,7 @@ function CoursesDetail() {
           {/* Image */}
           {course.image && (
             <img
-              // src={`http://localhost:4000/uploads/${course.image}`}
-              src={`${baseURL}/uploads/${course.image}`}
+              src={formatMediaUrl(course.image)}
               alt={course.name}
               className="w-full md:w-64 h-40 object-cover rounded-2xl border border-gray-200 dark:border-gray-700 shadow-sm"
             />

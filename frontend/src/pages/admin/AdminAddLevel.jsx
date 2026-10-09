@@ -13,8 +13,6 @@ const AdminAddLevel=() =>{
     duration: "",
     time: "",
     fee: "",
-    
-
   });
 
   useEffect(() => {
@@ -26,27 +24,22 @@ const AdminAddLevel=() =>{
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     if(editingLevelId){
-      // await axios.put(
-      //   `http://localhost:4000/api/courses/${selectedCourse}/levels/${editingLevelId}`, level
-      // );
       await API.put(
         `/api/courses/${selectedCourse}/levels/${editingLevelId}`, level
       );
-
     alert("Level added!");
+    window.location.reload();
 
     setEditingLevelId(null);
     }else{
-      // await axios.post(
-      //   `http://localhost:4000/api/courses/${selectedCourse}/levels`, level
-      // );
+      
       await API.post(
         `/api/courses/${selectedCourse}/levels`, level
       );
 
       alert("Level Added!");
+      window.location.reload();
     }
     setLevel({
       name: "",
@@ -56,6 +49,7 @@ const AdminAddLevel=() =>{
     });
 
     setEditingLevelId(null);
+    window.location.reload();
 };
 
 //editcall
@@ -73,15 +67,12 @@ const handleEdit = (lvl) => {
 //deletecall
 const handleDelete = async (levelId) => {
   try{
-    // await axios.delete(
-    //  `http://localhost:4000/api/courses/${selectedCourse}/levels/${levelId}`
     await API.delete(
      `/api/courses/${selectedCourse}/levels/${levelId}`
   );
   alert("Level Delected!");
+  window.location.reload();
 
-  //courses list refresh
-  // const res = await axios.get("http://localhost:4000/api/courses");
    const res = await API.get("/api/courses");
   setCourses(res.data);
 
@@ -204,17 +195,6 @@ return (
       </div>
     ))}
 </div>
-    {/* {courses
-      .find((course) => course._id === selectedCourse)
-      ?.levels.map((lvl) => (
-        <div key={lvl._id}>
-          <p>{lvl.name}</p>
-
-          <button onClick={() => handleEdit(lvl)}>Edit</button>
-          <button onClick={() => handleDelete(lvl._id)}>Delete</button>
-        </div>
-      ))} */}
-
   </div>
   </>
 );
