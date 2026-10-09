@@ -4,6 +4,14 @@ import axios from "axios";
 import API,{baseURL} from "../api";
 import { FaBookOpen, FaCalendarAlt, FaArrowRight, FaGraduationCap } from "react-icons/fa";
 
+// Safe file path formatter
+const formatMediaUrl = (path) => {
+  if (!path) return "";
+  if (path.startsWith("http://") || path.startsWith("https://")) return path;
+  const normalizedPath = path.replace(/\\/g, "/");
+  const cleanPath = normalizedPath.startsWith("/") ? normalizedPath : `/${normalizedPath}`;
+  return `${baseURL}${cleanPath}`;
+};
 
 const Courses = () => {
   const [courses, setCourse] = useState([]);
@@ -48,8 +56,7 @@ const Courses = () => {
                 <div className="w-full h-48 bg-gray-100 dark:bg-gray-700 overflow-hidden relative flex items-center justify-center">
                   {course.image ? (
                     <img
-                      // src={`http://localhost:4000/uploads/${course.image}`}
-                      src={`${baseURL}/uploads/${course.image}`}
+                      src={formatMediaUrl(course.image)}
                       alt={course.name}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
