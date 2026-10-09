@@ -3,6 +3,15 @@ import axios from 'axios';
 import API, { baseURL } from '../../api';
 import AdminNavbar from '../../components/AdminNavbar';
 
+// Safe file path formatter
+const formatMediaUrl = (path) => {
+  if (!path) return "";
+  if (path.startsWith("http://") || path.startsWith("https://")) return path;
+  const normalizedPath = path.replace(/\\/g, "/");
+  const cleanPath = normalizedPath.startsWith("/") ? normalizedPath : `/${normalizedPath}`;
+  return `${baseURL}${cleanPath}`;
+};
+
 const ManageCourses = () => {
 
     const[courses,setCourses] = useState([])
@@ -63,6 +72,7 @@ const ManageCourses = () => {
              },
            );
             alert("Course updated successfully!");
+            window.location.reload();
           }else{
             // await axios.post("http://localhost:4000/api/courses", formData, {
              await API.post("/api/courses", formData, {
@@ -71,6 +81,7 @@ const ManageCourses = () => {
               },
             });
             alert("Course saved successfully!");
+            window.location.reload();
           }
 
             setCourse({
@@ -88,6 +99,7 @@ const ManageCourses = () => {
         }catch(error){
             console.log(error);
             alert("Failed to save course");
+            window.location.reload();
         }
     };
 
@@ -97,9 +109,7 @@ const ManageCourses = () => {
 
   const fetchCourses = async () => {
   try {
-    // const res = await axios.get(
-    //   "http://localhost:4000/api/courses"
-    // );
+    
      const res = await API.get(
       "/api/courses"
     );
@@ -113,9 +123,7 @@ const ManageCourses = () => {
     const handleDelete = async (id) => {
       if(!window.confirm("Are u sure?"))return;
   try {
-    // await axios.delete(
-    //   `http://localhost:4000/api/courses/${id}`
-    // );
+    
     await API.delete(
       `/api/courses/${id}`
     );
@@ -123,6 +131,7 @@ const ManageCourses = () => {
       courses.filter((course) => course._id !== id)
     );
     alert("Course deleted!");
+    window.location.reload();
   } catch (error) {
     console.log(error);
   }
@@ -179,8 +188,7 @@ const ManageCourses = () => {
               <p className="text-sm text-gray-600">Current Image:</p>
 
               <img
-                // src={`http://localhost:4000/uploads/${course.image}`}
-                src={`${baseURL}/uploads/${course.image}`}
+                src={formatMediaUrl(course.image)}
                 alt="current"
                 className="
                    w-32 h-32 object-cover rounded-lg mt-2"
@@ -240,8 +248,7 @@ const ManageCourses = () => {
               >
                 {course.image && (
                   <img
-                    // src={`http://localhost:4000/uploads/${course.image}`}
-                     src={`${baseURL}/uploads/${course.image}`}
+                    src={formatMediaUrl(course.image)}
                     alt={course.name}
                     className="w-full h-48 object-cover rounded-lg mb-4"
                   />
