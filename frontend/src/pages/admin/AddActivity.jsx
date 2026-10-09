@@ -3,6 +3,15 @@ import axios from "axios";
 import API, { baseURL } from "../../api";
 import AdminNavbar from "../../components/AdminNavbar";
 
+// Safe file path formatter
+  const formatMediaUrl = (path) => {
+    if (!path) return "";
+    if (path.startsWith("http://") || path.startsWith("https://")) return path;
+    const normalizedPath = path.replace(/\\/g, "/");
+    const cleanPath = normalizedPath.startsWith("/") ? normalizedPath : `/${normalizedPath}`;
+    return `${baseURL}${cleanPath}`;
+  };
+
 const AddActivity = () => {
   const [activity, setActivity] = useState({
     title: "",
@@ -116,6 +125,8 @@ const AddActivity = () => {
       });
 
       alert("Hero Banner updated successfully!");
+      window.location.reload();
+
       setBannerFile(null);
       setBannerPreview("");
       if(bannerInputRef.current) bannerInputRef.current.value= "";
@@ -123,6 +134,8 @@ const AddActivity = () => {
     }catch(error){
       console.log(error);
       alert("Failed to update banner!");
+      window.location.reload();
+
     }finally{
       setBannerLoading(false);
     }
@@ -180,10 +193,12 @@ const AddActivity = () => {
           data
         );
         alert("Activity Updated Successfully!");
+        window.location.reload();
       } else {
         // await axios.post("http://localhost:4000/api/activities", data);
         await API.post("/api/activities", data);
         alert("Activity Added Successfully!");
+        window.location.reload();
       }
 
       // Form နှင့် UI အားလုံးကို မူလအတိုင်း Reset ပြန်ချခြင်း
@@ -208,6 +223,7 @@ const AddActivity = () => {
     } catch (error) {
       console.log(error);
       alert("Failed!");
+      window.location.reload();
     } finally {
       setLoading(false);
     }
@@ -266,7 +282,7 @@ const AddActivity = () => {
               <img src={bannerPreview} alt="Preview" className="w-full h-full object-cover"/>
             ) : currentBanner ? (
               // <img src={`http://localhost:4000/uploads/${currentBanner}`} 
-              <img src={`${baseURL}/uploads/${currentBanner}`} 
+              <img src={formatMediaUrl(currentBanner)}
               alt="Banner" 
               className="w-full h-full object-cover"/>
             ) : (
@@ -402,7 +418,7 @@ const AddActivity = () => {
               <div key={a._id} className="border rounded-lg p-4 shadow">
                 {a.images?.length > 0 && (
                   <img
-                    src={a.images[0]}
+                    src={formatMediaUrl(a.images[0])}
                     alt={a.title}
                     className="w-full h-52 object-cover rounded"
                   />
