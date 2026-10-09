@@ -136,10 +136,11 @@ const Navbar = () => {
 
   </div>
 
+  
   {/* 📱 Mobile Menu Dropdown  */}
   <div
     className={`lg:hidden overflow-hidden transition-all duration-300 ease-in-out ${
-      isMenuOpen ? "max-h-[400px] opacity-100" : "max-h-0 opacity-0"
+      isMenuOpen ? "max-h-[600px] opacity-100" : "max-h-0 opacity-0"
     }`}
   >
     <div className="bg-white dark:bg-gray-900 border-t border-gray-100 dark:border-gray-800">
