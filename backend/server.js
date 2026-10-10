@@ -22,16 +22,24 @@ import AdminRouter from './routes/adminRoutes.js';
 const app = express();
 const port = process.env.PORT || 4000;
 
-// Middleware
+const allowedOrigins = [
+  "http://localhost:4000",
+  "http://localhost:5173",
+  "https://map-website-chi.vercel.app",
+  "https://myanmaracademicplanet.vercel.app/"// 👈 သင့်ရဲ့ Vercel frontend URL အသစ်ကို ဒီနေရာမှာ ထည့်ပါ
+];
+
 app.use(cors({
-  origin: [
-    'https://myanmaracademicplanet.vercel.app/',
-    'https://myanmaracademicplanet.vercel.app/'
-  ],
-  credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  allowedHeaders: ['Content-Type', 'Authorization']
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true
 }));
+
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 app.use("/uploads",express.static("uploads"));
