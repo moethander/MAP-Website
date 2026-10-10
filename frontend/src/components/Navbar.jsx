@@ -149,7 +149,7 @@ const Navbar = () => {
           key={menu.path}
           to={menu.path}
           onClick={() => setIsMenuOpen(false)}
-          className={`block px-6 py-4 border-b border-gray-50 dark:border-gray-800/50 hover:bg-blue-50/50 dark:hover:bg-gray-800 ${
+          className={`block px-6 py-3 border-b border-gray-50 dark:border-gray-800/50 hover:bg-blue-50/50 dark:hover:bg-gray-800 ${
             location.pathname === menu.path
               ? "text-blue-700 dark:text-blue-400 font-semibold"
               : "text-gray-700 dark:text-gray-200"
@@ -162,7 +162,7 @@ const Navbar = () => {
         <Link
             to="/contact"
             onClick={() => setIsMenuOpen(false)}
-            className={`block px-6 py-4 border-b border-gray-50 dark:border-gray-800/50 hover:bg-blue-50/50 dark:hover:bg-gray-800 ${
+            className={`block px-6 py-3 border-b border-gray-50 dark:border-gray-800/50 hover:bg-blue-50/50 dark:hover:bg-gray-800 ${
               location.pathname === "/contact"
                 ? "text-blue-700 dark:text-blue-400 font-semibold"
                 : "text-gray-700 dark:text-gray-200"

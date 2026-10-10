@@ -1,7 +1,16 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import API, { baseURL } from "../../api";
-import AdminNavbar from "../../components/AdminNavbar";
+import AdminNavbar from "../../components/AdminNavbar"
+
+// Safe file path formatter
+const formatMediaUrl = (path) => {
+  if (!path) return "";
+  if (path.startsWith("http://") || path.startsWith("https://")) return path;
+  const normalizedPath = path.replace(/\\/g, "/");
+  const cleanPath = normalizedPath.startsWith("/") ? normalizedPath : `/${normalizedPath}`;
+  return `${baseURL}${cleanPath}`;
+};
 
 const AdminAbout = () => {
   const [formData, setFormData] = useState({
@@ -17,9 +26,7 @@ const AdminAbout = () => {
   const [message, setMessage] = useState("");
 
   useEffect(() => {
-    // ယူထားပြီးသား Data များကို Form ထဲ Fetch လုပ်မည်
-    // axios
-    //   .get("http://localhost:4000/api/about")
+
     API
       .get("/api/about")
       .then((res) => {
@@ -31,12 +38,8 @@ const AdminAbout = () => {
             vision: res.data.vision || "",
           });
 
-          // DB ထဲတွင် ပုံဟောင်းရှိပါက Preview ပြရန် backend URL ချိတ်ဆက်ခြင်း
-          // if (res.data.imageUrl) {
-          //   setPreviewImage(`http://localhost:4000/${res.data.imageUrl}`);
-          // }
           if (res.data.imageUrl) {
-            setPreviewImage(`${baseURL}/${res.data.imageUrl}`);
+           setPreviewImage(formatMediaUrl(res.data.imageUrl));
           }
         }
       })
@@ -82,17 +85,18 @@ const AdminAbout = () => {
       });
 
       alert("Updated Successfully!");
+      window.location.reload();
       console.log("Success Response:", res.data);
 
       // Update အဆင်ပြေသွားပါက Response မှ ပုံ URL ကို Preview အဖြစ် အသစ်ပြန်သတ်မှတ်မည်
       if (res.data.about?.imageUrl) {
-        // setPreviewImage(`http://localhost:4000/${res.data.about.imageUrl}`);
-        setPreviewImage(`${baseURL}/${res.data.about.imageUrl}`);
+       setPreviewImage(formatMediaUrl(res.data.about.imageUrl));
       }
     } catch (err) {
       const errorMsg = err.response?.data?.message || err.message;
       console.error("Update Error Details:", err.response || err);
       alert(`❌ Update Failed: ${errorMsg}`);
+      window.location.reload();
     } finally {
       setLoading(false);
     }

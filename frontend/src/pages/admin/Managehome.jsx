@@ -3,6 +3,15 @@ import axios from "axios";
 import API from "../../api";
 import AdminNavbar from "../../components/AdminNavbar";
 
+// Safe file path formatter
+const formatMediaUrl = (path) => {
+  if (!path) return "";
+  if (path.startsWith("http://") || path.startsWith("https://")) return path;
+  const normalizedPath = path.replace(/\\/g, "/");
+  const cleanPath = normalizedPath.startsWith("/") ? normalizedPath : `/${normalizedPath}`;
+  return `${baseURL}${cleanPath}`;
+};
+
 const ManageHome = () => {
 
   
@@ -150,6 +159,7 @@ const ManageHome = () => {
       },
     );
     alert("Home data updated successfully!");
+    window.location.reload();
     console.log(res.data);
     
   } catch (error) {
@@ -198,7 +208,7 @@ const ManageHome = () => {
                 {formData.bannerImage ? (
                   typeof formData.bannerImage === "string" ? (
                     <span className="text-blue-600 font-semibold">
-                      Saved: {formData.bannerImage.split("/").pop()}{" "}
+                     Saved: {formatMediaUrl(formData.bannerImage).split("/").pop()}
                     </span>
                   ) : (
                     <span className="text-green-600 font-bold">

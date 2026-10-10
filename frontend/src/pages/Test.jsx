@@ -2,6 +2,15 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import API,{baseURL} from "../api";
 
+// Safe file path formatter
+const formatMediaUrl = (path) => {
+  if (!path) return "";
+  if (path.startsWith("http://") || path.startsWith("https://")) return path;
+  const normalizedPath = path.replace(/\\/g, "/");
+  const cleanPath = normalizedPath.startsWith("/") ? normalizedPath : `/${normalizedPath}`;
+  return `${baseURL}${cleanPath}`;
+};
+
 const Test = () => {
   const [terms, setTerms] = useState("");
   const [testLink, setTestLink] = useState("");
@@ -47,8 +56,7 @@ const Test = () => {
         <img
           src={
             bannerImage
-              // ? `http://localhost:4000/uploads/${bannerImage}`
-              ? `${baseURL}/uploads/${bannerImage}`
+              ? formatMediaUrl(bannerImage)
               : "https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=1600"
           }
           alt="Placement Test Background"

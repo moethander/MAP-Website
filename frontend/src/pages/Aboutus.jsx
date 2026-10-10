@@ -3,6 +3,15 @@ import axios from "axios";
 import { FaBookOpen, FaBullseye, FaEye, FaFlag } from "react-icons/fa";
 import API,{baseURL} from "../api";
 
+// Safe file path formatter
+const formatMediaUrl = (path) => {
+  if (!path) return "";
+  if (path.startsWith("http://") || path.startsWith("https://")) return path;
+  const normalizedPath = path.replace(/\\/g, "/");
+  const cleanPath = normalizedPath.startsWith("/") ? normalizedPath : `/${normalizedPath}`;
+  return `${baseURL}${cleanPath}`;
+};
+
 const AboutUs = () => {
   const [about, setAbout] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -59,7 +68,7 @@ const AboutUs = () => {
               src={
                 about?.imageUrl
                   // ? `http://localhost:4000/${about.imageUrl}`
-                  ? `${baseURL}/${about.imageUrl}`
+                  ? formatMediaUrl(about.imageUrl)
                   : "https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=1470"
               }
               alt="Our Story"

@@ -3,6 +3,15 @@ import axios from "axios";
 import API, { baseURL } from "../../api";
 import AdminNavbar from '../../components/AdminNavbar';
 
+// Safe file path formatter
+const formatMediaUrl = (path) => {
+  if (!path) return "";
+  if (path.startsWith("http://") || path.startsWith("https://")) return path;
+  const normalizedPath = path.replace(/\\/g, "/");
+  const cleanPath = normalizedPath.startsWith("/") ? normalizedPath : `/${normalizedPath}`;
+  return `${baseURL}${cleanPath}`;
+};
+
 const AdminTest = () => {
   const [terms, setTerms] = useState("");
   const [testLink, setTestLink] = useState("");
@@ -35,7 +44,7 @@ const AdminTest = () => {
     setTerms(data?.terms || "");
     setTestLink(data?.testLink || "");
     // setPreviewImage(data?.bannerImage ? `http://localhost:4000/uploads/${data.bannerImage}` : "");
-    setPreviewImage(data?.bannerImage ? `${baseURL}/uploads/${data.bannerImage}` : "");
+    setPreviewImage(data?.bannerImage ? formatMediaUrl(data.bannerImage) : "");
     setBannerImage(null);
     setEditMode(true);
   };
@@ -66,11 +75,13 @@ const AdminTest = () => {
       });
 
       alert("Placement test updated successfully!");
+       window.location.reload();
       setEditMode(false);
       fetchData();
     } catch (error) {
       console.log("Error updating data:", error);
       alert("Error updating data");
+       window.location.reload();
     }
   };
 
@@ -118,8 +129,7 @@ const AdminTest = () => {
               <div className="h-44 w-full rounded-xl overflow-hidden border border-gray-200 dark:border-gray-700 bg-gray-100 dark:bg-gray-900">
                 {data?.bannerImage ? (
                   <img
-                    // src={`http://localhost:4000/uploads/${data.bannerImage}`}
-                    src={`${baseURL}/uploads/${data.bannerImage}`}
+                    src={formatMediaUrl(data.bannerImage)}
                     alt="Banner Preview"
                     className="w-full h-full object-cover"
                   />
