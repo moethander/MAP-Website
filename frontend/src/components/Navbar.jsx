@@ -158,7 +158,7 @@ const Navbar = () => {
           {menu.name}
         </Link>
       ))}
-      <div className="p-4">
+      <div>
         <Link
             to="/contact"
             onClick={() => setIsMenuOpen(false)}

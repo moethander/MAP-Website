@@ -3,32 +3,32 @@ import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { baseURL } from "../../api";
 
+// Safe file path formatter
+const formatMediaUrl = (path) => {
+  if (!path) return "";
+  if (path.startsWith("http://") || path.startsWith("https://")) return path;
+  const normalizedPath = path.replace(/\\/g, "/");
+  const cleanPath = normalizedPath.startsWith("/") ? normalizedPath : `/${normalizedPath}`;
+  return `${baseURL}${cleanPath}`;
+};
+
 const WhyChooseMAP = ({ homeData }) => {
   const navigate = useNavigate();
   const [showStoryModal, setShowStoryModal] = useState(false);
 
-  const features = [
+ const features = [
     {
-      icon: homeData?.feature1Image 
-        // ? `http://localhost:4000/${homeData.feature1Image.replace("\\", "/")}` 
-        ? `${baseURL}/${homeData.feature1Image.replace("\\", "/")}`
-        : "",
+      icon: formatMediaUrl(homeData?.feature1Image),
       title: homeData?.feature1Title || "Quality Education",
       desc: homeData?.feature1Description || "Modern learning methods designed to build strong knowledge and skills.",
     },
     {
-      icon: homeData?.feature2Image 
-        // ? `http://localhost:4000/${homeData.feature2Image.replace("\\", "/")}` 
-         ? `${baseURL}/${homeData.feature2Image.replace("\\", "/")}`
-        : "",
+      icon: formatMediaUrl(homeData?.feature2Image),
       title: homeData?.feature2Title || "Expert Teachers",
       desc: homeData?.feature2Description || "Learn with experienced instructors who guide students effectively.",
     },
     {
-      icon: homeData?.feature3Image 
-        // ? `http://localhost:4000/${homeData.feature3Image.replace("\\", "/")}` 
-         ? `${baseURL}/${homeData.feature3Image.replace("\\", "/")}`
-        : "",
+      icon: formatMediaUrl(homeData?.feature3Image),
       title: homeData?.feature3Title || "Professional Growth",
       desc: homeData?.feature3Description || "Develop skills and achieve certificates for future success.",
     },

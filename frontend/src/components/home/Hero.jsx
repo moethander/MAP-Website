@@ -1,6 +1,15 @@
 import React from "react";
 import {Link} from 'react-router-dom';
 
+// Safe file path formatter
+const formatMediaUrl = (path) => {
+  if (!path) return "";
+  if (path.startsWith("http://") || path.startsWith("https://")) return path;
+  const normalizedPath = path.replace(/\\/g, "/");
+  const cleanPath = normalizedPath.startsWith("/") ? normalizedPath : `/${normalizedPath}`;
+  return `${baseURL}${cleanPath}`;
+};
+
 const Hero = ({ homeData, backendUrl }) => {
   
 
@@ -10,7 +19,7 @@ const Hero = ({ homeData, backendUrl }) => {
         <section className="relative h-screen">
           {/* Background Image */}
           <img
-            src={`${backendUrl}${homeData.bannerImage.replace(/\\/g, "/")}`}
+            src={formatMediaUrl(homeData.bannerImage)}
             alt="MAP English Center"
             className="absolute inset-0 w-full h-full object-cover"
           />

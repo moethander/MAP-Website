@@ -3,6 +3,14 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import API,{baseURL} from "../../api";
 
+const formatMediaUrl = (path) => {
+  if (!path) return "";
+  if (path.startsWith("http://") || path.startsWith("https://")) return path;
+  const normalizedPath = path.replace(/\\/g, "/");
+  const cleanPath = normalizedPath.startsWith("/") ? normalizedPath : `/${normalizedPath}`;
+  return `${baseURL}${cleanPath}`;
+};
+
 const GalleryPreview = () => {
   const [previewItems, setPreviewItems] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -62,7 +70,8 @@ const GalleryPreview = () => {
               >
                 <img
                   // src={`http://localhost:4000/${item.url}`}
-                  src={`${baseURL}/${item.url}`}
+                  // src={`${baseURL}/${item.url}`}
+                  src={formatMediaUrl(item.url)}
                   alt="Campus preview"
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 ease-in-out"
                 />

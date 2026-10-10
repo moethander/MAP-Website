@@ -4,6 +4,15 @@ import { FaArrowRight } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import API,{baseURL} from "../../api";
 
+// Safe file path formatter
+const formatMediaUrl = (path) => {
+  if (!path) return "";
+  if (path.startsWith("http://") || path.startsWith("https://")) return path;
+  const normalizedPath = path.replace(/\\/g, "/");
+  const cleanPath = normalizedPath.startsWith("/") ? normalizedPath : `/${normalizedPath}`;
+  return `${baseURL}${cleanPath}`;
+};
+
 const HomeCourses = () => {
   const [courses, setCourses] = useState([]);
   const fetchCourses = async () => {
@@ -59,8 +68,7 @@ const HomeCourses = () => {
             >
               {course.image && (
                 <img
-                  // src={`http://localhost:4000/uploads/${course.image}`}
-                  src={`${baseURL}/uploads/${course.image}`}
+                  src={formatMediaUrl(course.image)}
                   alt={course.name}
                   className="w-full h-48 object-cover rounded-t-2xl"
                 />
