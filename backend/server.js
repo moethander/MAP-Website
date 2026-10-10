@@ -25,8 +25,8 @@ const port = process.env.PORT || 4000;
 // Middleware
 app.use(cors({
   origin: [
-    'https://m-a-p-english-center.vercel.app',
-    'https://m-a-p-english-center.vercel.app/'
+    'https://myanmaracademicplanet.vercel.app/',
+    'https://myanmaracademicplanet.vercel.app/'
   ],
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
