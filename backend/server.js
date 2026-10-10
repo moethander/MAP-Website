@@ -26,7 +26,7 @@ const allowedOrigins = [
   "http://localhost:4000",
   "http://localhost:5173",
   "https://map-website-chi.vercel.app",
-  "https://myanmaracademicplanet.vercel.app/"// 👈 သင့်ရဲ့ Vercel frontend URL အသစ်ကို ဒီနေရာမှာ ထည့်ပါ
+  "https://myanmaracademicplanet.vercel.app"// 👈 သင့်ရဲ့ Vercel frontend URL အသစ်ကို ဒီနေရာမှာ ထည့်ပါ
 ];
 
 app.use(cors({
