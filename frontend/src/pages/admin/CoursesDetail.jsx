@@ -12,6 +12,16 @@ const formatMediaUrl = (path) => {
   return `${baseURL}${cleanPath}`;
 };
 
+const formatDateToDMY = (dateString) => {
+  if (!dateString) return "TBA";
+  // အကယ်၍ "Mon/Tues" လိုမျိုး စာသားဖြစ်နေရင် အဲ့အတိုင်းပြန်ပြရန်
+  if (!dateString.includes("-") && !dateString.includes("/")) return dateString;
+
+  const [year, month, day] = dateString.split("-");
+  if (!year || !month || !day) return dateString;
+  return `${day}.${month}.${year}`; // 👉 16.11.2026 ပုံစံထွက်လာမည်
+};
+
 // 👈 FaArrowLeft နဲ့ FaBookOpen တို့ကို Import ထဲ ထည့်ပေးထားပါသည်
 import { 
   FaGraduationCap, 
@@ -158,7 +168,7 @@ function CoursesDetail() {
                         </div>
                       </td>
 
-                      {/* Date (၁) */}
+                      {/* Date */}
                       <td className="p-4 text-gray-600 dark:text-gray-300">
                         <div className="flex items-center gap-2">
                           <FaCalendarAlt className="text-amber-500 text-base flex-shrink-0" />
@@ -166,11 +176,11 @@ function CoursesDetail() {
                         </div>
                       </td>
 
-                      {/* Start Date (၂) */}
+                      {/* Start Date */}
                       <td className="p-4 text-gray-600 dark:text-gray-300">
                         <div className="flex items-center gap-2">
                           <FaCalendarAlt className="text-amber-500 text-base flex-shrink-0" />
-                          <span>{lvl.startDate ? lvl.startDate : "TBA"}</span>
+                          <span>{formatDateToDMY(lvl.startDate)}</span>
                         </div>
                       </td>
 

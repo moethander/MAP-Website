@@ -144,7 +144,7 @@ return (
         {/* Start Date */}
         <div>
           <label className="text-sm font-semibold text-gray-600">
-            Start Date (စတဲ့ရက်)
+            Start Date 
           </label>
           <input
             type="date"
@@ -157,10 +157,11 @@ return (
         {/* Date */}
         <div>
           <label className="text-sm font-semibold text-gray-600">
-            Date (တက်ရမယ့်ရက်)
+            Date 
           </label>
           <input
-            type="date"
+            type="text"
+            placeholder="eg. Mon/Tues/Weds"
             value={level.date}
             onChange={(e) => setLevel({ ...level, date: e.target.value })}
             className="w-full border p-3 rounded-lg"
