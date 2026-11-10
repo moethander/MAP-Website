@@ -144,7 +144,7 @@ return (
         {/* Start Date */}
         <div>
           <label className="text-sm font-semibold text-gray-600">
-            Start Date 
+            Start Date
           </label>
           <input
             type="date"
@@ -156,9 +156,7 @@ return (
 
         {/* Date */}
         <div>
-          <label className="text-sm font-semibold text-gray-600">
-            Date 
-          </label>
+          <label className="text-sm font-semibold text-gray-600">Date</label>
           <input
             type="text"
             placeholder="eg. Mon/Tues/Weds"
@@ -208,11 +206,12 @@ return (
           ?.levels.map((lvl) => (
             <div key={lvl._id} className="border rounded-lg shadow p-4 mb-4">
               <h3 className="text-xl font-semibold">{lvl.name}</h3>
-
               <p>Duration: {lvl.duration}</p>
               <p>Fee: {lvl.fee}</p>
               <p>Time: {lvl.time}</p>
-
+              <p>Start Date: {lvl.startDate ? lvl.startDate : "TBA"}</p>
+              <p>Date: {lvl.date ? lvl.date : "TBA"}</p>
+              
               <div className="mt-3 flex gap-3">
                 <button
                   onClick={() => handleEdit(lvl)}
