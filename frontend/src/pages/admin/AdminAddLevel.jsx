@@ -13,6 +13,8 @@ const AdminAddLevel=() =>{
     duration: "",
     time: "",
     fee: "",
+    date: "",
+    startDate: "",
   });
 
   useEffect(() => {
@@ -45,7 +47,9 @@ const AdminAddLevel=() =>{
       name: "",
       duration: "",
       time: "",
-      fee: ""
+      fee: "",
+      date: "",
+      startDate: "",
     });
 
     setEditingLevelId(null);
@@ -60,7 +64,10 @@ const handleEdit = (lvl) => {
     name: lvl.name, 
     duration: lvl.duration,
     fee: lvl.fee,
-    time: lvl.time
+    time: lvl.time,
+    startDate: lvl.startDate || "",
+    date: lvl.date || "",
+
   });
 };
 
@@ -85,117 +92,145 @@ const handleDelete = async (levelId) => {
 
 return (
   <>
-  <AdminNavbar/>
-  <div className="max-w-4xl mx-auto p-6">
-      <h1 style={{textAlign: "center", fontWeight: "bold"}} className="">Add Level</h1>
+    <AdminNavbar />
+    <div className="max-w-4xl mx-auto p-6">
+      <h1 style={{ textAlign: "center", fontWeight: "bold" }} className="">
+        Add Level
+      </h1>
 
-    {/* Select Course */}
-    <form onSubmit={handleSubmit} className="bg-white shadow-lg rounded-xl p-6 space-y-4">
-      <select
-        value={selectedCourse}
-        onChange={(e) => setSelectedCourse(e.target.value)}
-        className="w-full border p-3 rounded-lg"
+      {/* Select Course */}
+      <form
+        onSubmit={handleSubmit}
+        className="bg-white shadow-lg rounded-xl p-6 space-y-4"
       >
-        <option value="" >Select Course</option>
+        <select
+          value={selectedCourse}
+          onChange={(e) => setSelectedCourse(e.target.value)}
+          className="w-full border p-3 rounded-lg"
+        >
+          <option value="">Select Course</option>
 
-        {courses.map((course) => (
-          <option key={course._id} value={course._id}>
-            {course.name}
-          </option>
-        ))}
-      </select>
+          {courses.map((course) => (
+            <option key={course._id} value={course._id}>
+              {course.name}
+            </option>
+          ))}
+        </select>
 
-      {/* Level Name */}
-      <input
-        type="text"
-        placeholder="Level Name"
-        value={level.name}
-        onChange={(e) => setLevel({ ...level, name: e.target.value })}
-        className="w-full border p-3 rounded-lg"
-      />
+        {/* Level Name */}
+        <input
+          type="text"
+          placeholder="Level Name"
+          value={level.name}
+          onChange={(e) => setLevel({ ...level, name: e.target.value })}
+          className="w-full border p-3 rounded-lg"
+        />
 
-      <br />
-      <br />
+        <br />
+        <br />
 
-      {/* Description */}
-      <input
-        type="text"
-        placeholder="Duration"
-        value={level.duration}
-        onChange={(e) => setLevel({ ...level, duration: e.target.value })}
-        className="w-full border p-3 rounded-lg"
-      />
+        {/* Description */}
+        <input
+          type="text"
+          placeholder="Duration"
+          value={level.duration}
+          onChange={(e) => setLevel({ ...level, duration: e.target.value })}
+          className="w-full border p-3 rounded-lg"
+        />
 
-      <br />
-      <br />
-      <input
-        type="text"
-        placeholder="Fee"
-        value={level.fee}
-        onChange={(e) => setLevel({ ...level, fee: e.target.value })}
-        className="w-full border p-3 rounded-lg"
-      />
+        <br />
+        <br />
 
-      <br />
-      <br />
-      <input
-        type="text"
-        placeholder="Time"
-        value={level.time}
-        onChange={(e) => setLevel({ ...level, time: e.target.value })}
-        className="w-full border p-3 rounded-lg"
-      />
-
-      <br />
-      <br />
-
-      <button
-        type="submit"
-        className="bg-blue-500 text-white px-4 py-2 rounded-lg w-full border p-3"
-      >
-        Save Level
-      </button>
-    </form>
-
-        <div className="mt-8">
-  <h2 className="text-2xl font-bold mb-4">
-    {
-      courses.find(course => course._id === selectedCourse)?.name
-    }
-  </h2>
-
-  {courses
-    .find(course => course._id === selectedCourse)
-    ?.levels.map((lvl) => (
-      <div
-        key={lvl._id}
-        className="border rounded-lg shadow p-4 mb-4"
-      >
-        <h3 className="text-xl font-semibold">{lvl.name}</h3>
-
-        <p>Duration: {lvl.duration}</p>
-        <p>Fee: {lvl.fee}</p>
-        <p>Time: {lvl.time}</p>
-
-        <div className="mt-3 flex gap-3">
-          <button
-            onClick={() => handleEdit(lvl)}
-            className="bg-yellow-500 text-white px-4 py-2 rounded"
-          >
-            Edit
-          </button>
-
-          <button
-            onClick={() => handleDelete(lvl._id)}
-            className="bg-red-500 text-white px-4 py-2 rounded"
-          >
-            Delete
-          </button>
+        {/* Start Date */}
+        <div>
+          <label className="text-sm font-semibold text-gray-600">
+            Start Date (စတဲ့ရက်)
+          </label>
+          <input
+            type="date"
+            value={level.startDate}
+            onChange={(e) => setLevel({ ...level, startDate: e.target.value })}
+            className="w-full border p-3 rounded-lg"
+          />
         </div>
+
+        {/* Date */}
+        <div>
+          <label className="text-sm font-semibold text-gray-600">
+            Date (တက်ရမယ့်ရက်)
+          </label>
+          <input
+            type="date"
+            value={level.date}
+            onChange={(e) => setLevel({ ...level, date: e.target.value })}
+            className="w-full border p-3 rounded-lg"
+          />
+        </div>
+
+        <input
+          type="text"
+          placeholder="Fee"
+          value={level.fee}
+          onChange={(e) => setLevel({ ...level, fee: e.target.value })}
+          className="w-full border p-3 rounded-lg"
+        />
+
+        <br />
+        <br />
+
+        <input
+          type="text"
+          placeholder="Time"
+          value={level.time}
+          onChange={(e) => setLevel({ ...level, time: e.target.value })}
+          className="w-full border p-3 rounded-lg"
+        />
+
+        <br />
+        <br />
+
+        <button
+          type="submit"
+          className="bg-blue-500 text-white px-4 py-2 rounded-lg w-full border p-3"
+        >
+          Save Level
+        </button>
+      </form>
+
+      <div className="mt-8">
+        <h2 className="text-2xl font-bold mb-4">
+          {courses.find((course) => course._id === selectedCourse)?.name}
+        </h2>
+
+        {courses
+          .find((course) => course._id === selectedCourse)
+          ?.levels.map((lvl) => (
+            <div key={lvl._id} className="border rounded-lg shadow p-4 mb-4">
+              <h3 className="text-xl font-semibold">{lvl.name}</h3>
+
+              <p>Duration: {lvl.duration}</p>
+              <p>Fee: {lvl.fee}</p>
+              <p>Time: {lvl.time}</p>
+
+              <div className="mt-3 flex gap-3">
+                <button
+                  onClick={() => handleEdit(lvl)}
+                  className="bg-yellow-500 text-white px-4 py-2 rounded"
+                >
+                  Edit
+                </button>
+
+                <button
+                  onClick={() => handleDelete(lvl._id)}
+                  className="bg-red-500 text-white px-4 py-2 rounded"
+                >
+                  Delete
+                </button>
+              </div>
+            </div>
+          ))}
       </div>
-    ))}
-</div>
-  </div>
+    </div>
   </>
 );
 }

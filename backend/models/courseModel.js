@@ -5,7 +5,9 @@ const levelSchema = new mongoose.Schema({
   fee: String,
   time: String,
   icon: String,
-  duration: String
+  duration: String,
+  startDate: String,
+  date: String
 });
 
 const courseSchema = new mongoose.Schema({

@@ -19,7 +19,8 @@ import {
   FaClock, 
   FaCheckCircle, 
   FaArrowLeft, 
-  FaBookOpen 
+  FaBookOpen,
+  FaCalendarAlt
 } from "react-icons/fa";
 
 function CoursesDetail() {
@@ -66,7 +67,6 @@ function CoursesDetail() {
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-white transition-colors duration-300 py-10 px-6">
       <div className="max-w-5xl mx-auto space-y-8">
-        
         {/* ⬅️ Back Button */}
         <Link
           to="/courses"
@@ -82,7 +82,7 @@ function CoursesDetail() {
               {course.name}
             </h1>
             <div className="w-16 h-1 bg-blue-900 dark:bg-blue-500 rounded-full"></div>
-            
+
             {/* Course Description */}
             {course.description && (
               <p className="text-gray-600 dark:text-gray-300 text-sm md:text-base leading-relaxed pt-2">
@@ -113,17 +113,22 @@ function CoursesDetail() {
               <table className="w-full text-left border-collapse">
                 <thead>
                   <tr className="bg-blue-900 dark:bg-blue-950 text-white uppercase text-xs md:text-sm tracking-wider font-sans">
-                    <th className="p-4 rounded-l-2xl">Class / Level</th>
-                    <th className="p-4">Course Fees</th>
+                    <th className="p-4 rounded-l-2xl">Class Name</th>
+                    <th className="p-4">Start Date</th>
+                    <th className="p-4">Date</th>
                     <th className="p-4">Time-Table</th>
+                    <th className="p-4">Course Fees</th>
+
                     <th className="p-4 text-center">Status</th>
                     <th className="p-4 text-center rounded-r-2xl">Action</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-100 dark:divide-gray-700/60 text-xs md:text-sm font-medium">
                   {course.levels.map((lvl, i) => (
-                    <tr key={i} className="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
-                      
+                    <tr
+                      key={i}
+                      className="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors"
+                    >
                       {/* Level Name */}
                       <td className="p-4 font-bold capitalize text-gray-800 dark:text-gray-200">
                         <div className="flex items-center gap-3">
@@ -137,7 +142,10 @@ function CoursesDetail() {
                         <div className="flex items-center gap-2">
                           <FaMoneyBillWave className="text-emerald-500 text-base flex-shrink-0" />
                           <span>
-                            {Number(lvl.fee) ? Number(lvl.fee).toLocaleString() : lvl.fee} MMK
+                            {Number(lvl.fee)
+                              ? Number(lvl.fee).toLocaleString()
+                              : lvl.fee}{" "}
+                            MMK
                           </span>
                         </div>
                       </td>
@@ -147,6 +155,22 @@ function CoursesDetail() {
                         <div className="flex items-center gap-2">
                           <FaClock className="text-amber-500 text-base flex-shrink-0" />
                           <span>{lvl.time}</span>
+                        </div>
+                      </td>
+
+                      {/* Date (၁) */}
+                      <td className="p-4 text-gray-600 dark:text-gray-300">
+                        <div className="flex items-center gap-2">
+                          <FaCalendarAlt className="text-amber-500 text-base flex-shrink-0" />
+                          <span>{lvl.date ? lvl.date : "TBA"}</span>
+                        </div>
+                      </td>
+
+                      {/* Start Date (၂) */}
+                      <td className="p-4 text-gray-600 dark:text-gray-300">
+                        <div className="flex items-center gap-2">
+                          <FaCalendarAlt className="text-amber-500 text-base flex-shrink-0" />
+                          <span>{lvl.startDate ? lvl.startDate : "TBA"}</span>
                         </div>
                       </td>
 
@@ -166,7 +190,6 @@ function CoursesDetail() {
                           Enroll Now
                         </Link>
                       </td>
-
                     </tr>
                   ))}
                 </tbody>
@@ -178,7 +201,6 @@ function CoursesDetail() {
             </div>
           )}
         </div>
-
       </div>
     </div>
   );

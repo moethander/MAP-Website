@@ -174,7 +174,7 @@ const ManageCourses = () => {
           <br />
 
           <input
-            type="text"
+            type="date"
             name="startDate"
             placeholder="StartDate"
             value={course.startDate}
@@ -214,7 +214,7 @@ const ManageCourses = () => {
                 editId ? "bg-amber-600" : "bg-blue-700"
               } text-white px-6 py-3 rounded-lg w-full font-semibold`}
             >
-              {editId ? "Save course" : "Update course"}
+              {editId ? "Update course" : "Save course"}
             </button>
 
             {editId && (
