@@ -128,11 +128,11 @@ function CoursesDetail() {
                     <th className="p-4">Date</th>
                     <th className="p-4">Time-Table</th>
                     <th className="p-4">Course Fees</th>
-
                     <th className="p-4 text-center">Status</th>
                     <th className="p-4 text-center rounded-r-2xl">Action</th>
                   </tr>
                 </thead>
+
                 <tbody className="divide-y divide-gray-100 dark:divide-gray-700/60 text-xs md:text-sm font-medium">
                   {course.levels.map((lvl, i) => (
                     <tr
@@ -144,6 +144,30 @@ function CoursesDetail() {
                         <div className="flex items-center gap-3">
                           <FaGraduationCap className="text-blue-900 dark:text-blue-400 text-lg flex-shrink-0" />
                           <span>{lvl.name}</span>
+                        </div>
+                      </td>
+
+                      {/* Start Date */}
+                      <td className="p-4 text-gray-600 dark:text-gray-300">
+                        <div className="flex items-center gap-2">
+                          <FaCalendarAlt className="text-amber-500 text-base flex-shrink-0" />
+                          <span>{formatDateToDMY(lvl.startDate)}</span>
+                        </div>
+                      </td>
+
+                       {/* Date */}
+                      <td className="p-4 text-gray-600 dark:text-gray-300">
+                        <div className="flex items-center gap-2">
+                          <FaCalendarAlt className="text-amber-500 text-base flex-shrink-0" />
+                          <span>{lvl.date ? lvl.date : "TBA"}</span>
+                        </div>
+                      </td>
+
+                      {/* Time Table */}
+                      <td className="p-4 text-gray-600 dark:text-gray-300">
+                        <div className="flex items-center gap-2">
+                          <FaClock className="text-amber-500 text-base flex-shrink-0" />
+                          <span>{lvl.time}</span>
                         </div>
                       </td>
 
@@ -159,31 +183,7 @@ function CoursesDetail() {
                           </span>
                         </div>
                       </td>
-
-                      {/* Time Table */}
-                      <td className="p-4 text-gray-600 dark:text-gray-300">
-                        <div className="flex items-center gap-2">
-                          <FaClock className="text-amber-500 text-base flex-shrink-0" />
-                          <span>{lvl.time}</span>
-                        </div>
-                      </td>
-
-                      {/* Date */}
-                      <td className="p-4 text-gray-600 dark:text-gray-300">
-                        <div className="flex items-center gap-2">
-                          <FaCalendarAlt className="text-amber-500 text-base flex-shrink-0" />
-                          <span>{lvl.date ? lvl.date : "TBA"}</span>
-                        </div>
-                      </td>
-
-                      {/* Start Date */}
-                      <td className="p-4 text-gray-600 dark:text-gray-300">
-                        <div className="flex items-center gap-2">
-                          <FaCalendarAlt className="text-amber-500 text-base flex-shrink-0" />
-                          <span>{formatDateToDMY(lvl.startDate)}</span>
-                        </div>
-                      </td>
-
+  
                       {/* Status */}
                       <td className="p-4 text-center">
                         <span className="inline-flex items-center gap-1 bg-green-50 dark:bg-green-950/40 text-green-700 dark:text-green-400 text-xs font-bold px-3 py-1 rounded-full border border-green-200 dark:border-green-800">
