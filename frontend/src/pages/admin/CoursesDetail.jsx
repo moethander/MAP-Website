@@ -185,11 +185,13 @@ function CoursesDetail() {
                         </div>
                       </td>
 
-                      {/* 2. Duration */}
+                      {/* 2. Duration (ကာလ - 3 Months တစ်ဆက်တည်းပေါ်ရန်) */}
                       <td className="p-4 text-gray-600 dark:text-gray-300">
                         <div className="flex items-center gap-2">
                           <FaClock className="text-indigo-500 text-base flex-shrink-0" />
-                          <span>{lvl.duration ? lvl.duration : "TBA"}</span>
+                          <span className="whitespace-nowrap">
+                            {lvl.duration ? lvl.duration : "TBA"}
+                          </span>
                         </div>
                       </td>
 
