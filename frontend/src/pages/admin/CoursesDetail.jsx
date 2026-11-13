@@ -128,7 +128,8 @@ function CoursesDetail() {
                     <th className="p-4">Date</th>
                     <th className="p-4">Time-Table</th>
                     <th className="p-4">Course Fees</th>
-                    <th className="p-4 text-center">Status</th>
+                    <th className="p-4">Duration</th>
+                    {/* <th className="p-4 text-center">Status</th> */}
                     <th className="p-4 text-center rounded-r-2xl">Action</th>
                   </tr>
                 </thead>
@@ -155,7 +156,7 @@ function CoursesDetail() {
                         </div>
                       </td>
 
-                       {/* Date */}
+                      {/* Date */}
                       <td className="p-4 text-gray-600 dark:text-gray-300">
                         <div className="flex items-center gap-2">
                           <FaCalendarAlt className="text-amber-500 text-base flex-shrink-0" />
@@ -183,13 +184,21 @@ function CoursesDetail() {
                           </span>
                         </div>
                       </td>
-  
+
+                      {/* 2. Duration */}
+                      <td className="p-4 text-gray-600 dark:text-gray-300">
+                        <div className="flex items-center gap-2">
+                          <FaClock className="text-indigo-500 text-base flex-shrink-0" />
+                          <span>{lvl.duration ? lvl.duration : "TBA"}</span>
+                        </div>
+                      </td>
+
                       {/* Status */}
-                      <td className="p-4 text-center">
+                      {/* <td className="p-4 text-center">
                         <span className="inline-flex items-center gap-1 bg-green-50 dark:bg-green-950/40 text-green-700 dark:text-green-400 text-xs font-bold px-3 py-1 rounded-full border border-green-200 dark:border-green-800">
                           <FaCheckCircle className="text-green-500" /> Open
                         </span>
-                      </td>
+                      </td> */}
 
                       {/* Action Button */}
                       <td className="p-4 text-center">
