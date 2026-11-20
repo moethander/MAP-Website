@@ -4,6 +4,25 @@ import API from "../../api";
 import { Link } from "react-router-dom";
 import { FaCalendarAlt, FaArrowRight } from "react-icons/fa";
 
+// Format date as D-M-YYYY (e.g. "2026-11-01" -> "1-11-2026")
+const formatDateDMY = (dateInput) => {
+  if (!dateInput) return "";
+  const raw = String(dateInput).trim();
+
+  const isoMatch = raw.match(/^(\d{4})-(\d{1,2})-(\d{1,2})/);
+  if (isoMatch) {
+    const [, year, month, day] = isoMatch;
+    return `${Number(day)}-${Number(month)}-${year}`;
+  }
+
+  const date = new Date(raw);
+  if (!isNaN(date.getTime())) {
+    return `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;
+  }
+
+  return raw;
+};
+
 const ActivitiesPreview = () => {
   const [activities, setActivities] = useState([]);
   const [loading, setLoading] = useState(true);
