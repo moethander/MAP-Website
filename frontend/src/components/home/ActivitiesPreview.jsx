@@ -9,12 +9,21 @@ const formatDateDMY = (dateInput) => {
   if (!dateInput) return "";
   const raw = String(dateInput).trim();
 
-  const isoMatch = raw.match(/^(\d{4})-(\d{1,2})-(\d{1,2})/);
-  if (isoMatch) {
-    const [, year, month, day] = isoMatch;
+  // 1. YYYY-MM-DD or YYYY/MM/DD
+  const ymdMatch = raw.match(/^(\d{4})[-/](\d{1,2})[-/](\d{1,2})/);
+  if (ymdMatch) {
+    const [, year, month, day] = ymdMatch;
     return `${Number(day)}-${Number(month)}-${year}`;
   }
 
+  // 2. DD-MM-YYYY or DD/MM/YYYY (already D-M-YYYY style)
+  const dmyMatch = raw.match(/^(\d{1,2})[-/](\d{1,2})[-/](\d{4})$/);
+  if (dmyMatch) {
+    const [, day, month, year] = dmyMatch;
+    return `${Number(day)}-${Number(month)}-${year}`;
+  }
+
+  // 3. Fallback for Date / ISO string
   const date = new Date(raw);
   if (!isNaN(date.getTime())) {
     return `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;
