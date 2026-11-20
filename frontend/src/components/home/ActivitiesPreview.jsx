@@ -73,10 +73,8 @@ const ActivitiesPreview = () => {
   if (activities.length === 0) return null;
 
   return (
-    
     <section className="pb-16 md:pt-6 md:pb-24 bg-slate-50 dark:bg-gray-900 w-full overflow-hidden transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
         {/* Title Section */}
         <div className="text-center mb-16 max-w-3xl mx-auto">
           <p className="text-blue-600 dark:text-blue-400 font-bold uppercase tracking-widest text-sm">
@@ -86,12 +84,12 @@ const ActivitiesPreview = () => {
             Our Latest Activities
           </h2>
           <div className="w-16 h-1 bg-blue-600 dark:bg-blue-500 mx-auto mt-4 rounded-full"></div>
-          
+
           <p className="text-gray-500 dark:text-slate-400 mt-5 text-sm md:text-base leading-relaxed">
             Explore the vibrant campus life, workshops, seminars, and fun events happening at Myanmar Academic Planet.
           </p>
         </div>
-        
+
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full">
           {activities.map((activity) => {
             const imgIndex = currentImage[activity._id] ?? 0;
@@ -158,10 +156,10 @@ const ActivitiesPreview = () => {
                       {activity.date && (
                         <div className="flex items-center gap-1 text-xs text-gray-400 dark:text-gray-400">
                           <FaCalendarAlt className="text-blue-600 dark:text-blue-400" />
-                          <span>{activity.date}</span>
+                          <span>{formatDateDMY(activity.date)}</span>
                         </div>
                       )}
-                      
+
                       {activity.theme && (
                         <span className="bg-green-50 dark:bg-green-950/60 text-green-700 dark:text-green-400 font-semibold px-2 py-0.5 rounded text-[11px] border border-transparent dark:border-green-800/40">
                           🎯 {activity.theme}
@@ -169,12 +167,10 @@ const ActivitiesPreview = () => {
                       )}
                     </div>
 
-                    
                     <h3 className="text-lg md:text-xl font-bold text-gray-900 dark:text-white group-hover:text-blue-700 dark:group-hover:text-blue-400 transition duration-300 line-clamp-2">
                       {activity.title}
                     </h3>
 
-                    
                     <p className="text-gray-500 dark:text-slate-400 mt-2 text-sm line-clamp-3 leading-relaxed">
                       {activity.description}
                     </p>
@@ -185,7 +181,7 @@ const ActivitiesPreview = () => {
                     to="/activities"
                     className="inline-flex items-center gap-2 text-blue-700 dark:text-blue-400 font-bold mt-6 text-sm group/btn"
                   >
-                    Read More 
+                    Read More
                     <FaArrowRight className="text-xs group-hover/btn:translate-x-1 transition" />
                   </Link>
                 </div>
@@ -203,7 +199,6 @@ const ActivitiesPreview = () => {
             <FaArrowRight className="group-hover:translate-x-1.5 transition duration-300" />
           </Link>
         </div>
-
       </div>
     </section>
   );
