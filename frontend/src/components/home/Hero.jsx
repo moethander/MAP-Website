@@ -7,12 +7,7 @@ const formatMediaUrl = (path, backendUrl = "") => {
   if (path.startsWith("http://") || path.startsWith("https://")) return path;
   const normalizedPath = path.replace(/\\/g, "/");
   const cleanPath = normalizedPath.startsWith("/") ? normalizedPath : `/${normalizedPath}`;
-  const base =
-    typeof backendUrl === "string" && backendUrl
-      ? backendUrl
-      : typeof baseURL !== "undefined"
-      ? baseURL
-      : "";
+  const base = typeof backendUrl === "string" && backendUrl ? backendUrl : typeof baseURL !== "undefined" ? baseURL : "";
   return `${base}${cleanPath}`;
 };
 
@@ -20,13 +15,13 @@ const Hero = ({ homeData, backendUrl }) => {
   if (!homeData?.bannerImage) return null;
 
   return (
-    <div className="w-full overflow-x-clip bg-black text-white dark:text-gray-100">
-      <section className="relative min-h-[60svh] sm:min-h-[75svh] lg:h-screen w-full py-10 sm:py-14 lg:py-0 flex items-center">
-        {/* Background Image: ဖုန်း/Tablet မှာ အပြည့် (object-contain)၊ PC မှာ မျက်နှာပြည့် (object-cover) */}
+    <div className="w-full overflow-x-clip text-white dark:text-gray-100">
+      <section className="relative min-h-[75svh] sm:min-h-[85svh] lg:h-screen w-full py-10 sm:py-14 lg:py-0 flex items-center">
+        {/* Background Image */}
         <img
           src={formatMediaUrl(homeData.bannerImage, backendUrl)}
           alt="MAP English Center"
-          className="absolute inset-0 w-full h-full object-contain lg:object-cover object-center"
+          className="absolute inset-0 w-full h-full object-cover object-[75%_center] md:object-center"
         />
 
         {/* Dark Overlay */}
@@ -39,7 +34,7 @@ const Hero = ({ homeData, backendUrl }) => {
               {homeData.heroBadge || "Myanmar Academic Planet"}
             </span>
 
-            <h1 className="text-2xl sm:text-5xl lg:text-7xl font-extrabold mt-4 sm:mt-6 leading-snug sm:leading-tight break-words">
+            <h1 className="text-2xl xs:text-3xl sm:text-5xl lg:text-7xl font-extrabold mt-4 sm:mt-6 leading-snug sm:leading-tight break-words">
               {homeData.heroTitle || "Learn English With Confidence"}
             </h1>
 
@@ -54,10 +49,7 @@ const Hero = ({ homeData, backendUrl }) => {
                 href={
                   homeData?.messengerPageId?.startsWith("http")
                     ? homeData.messengerPageId
-                    : `https://m.me/${
-                        homeData?.messengerPageId ||
-                        "Myanmar-Academic-Planet-1914656698655446"
-                      }`
+                    : `https://m.me/${homeData?.messengerPageId || "Myanmar-Academic-Planet-1914656698655446"}`
                 }
                 target="_blank"
                 rel="noopener noreferrer"
