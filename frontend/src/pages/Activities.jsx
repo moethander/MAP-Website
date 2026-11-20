@@ -1,6 +1,26 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import API,{baseURL} from "../api";
+import API, { baseURL } from "../api";
+
+// Format date as D-M-YYYY (e.g. "2026-11-01" -> "1-11-2026")
+const formatDateDMY = (dateInput) => {
+  if (!dateInput) return "";
+  const raw = String(dateInput).trim();
+
+  // Handle YYYY-MM-DD or ISO string without timezone shifting the day
+  const isoMatch = raw.match(/^(\d{4})-(\d{1,2})-(\d{1,2})/);
+  if (isoMatch) {
+    const [, year, month, day] = isoMatch;
+    return `${Number(day)}-${Number(month)}-${year}`;
+  }
+
+  const date = new Date(raw);
+  if (!isNaN(date.getTime())) {
+    return `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;
+  }
+
+  return raw;
+};
 
 function Activities() {
   const [activities, setActivities] = useState([]);
@@ -9,13 +29,13 @@ function Activities() {
   const [currentImage, setCurrentImage] = useState({});
 
   // Safe file path formatter
-const formatMediaUrl = (path) => {
-  if (!path) return "";
-  if (path.startsWith("http://") || path.startsWith("https://")) return path;
-  const normalizedPath = path.replace(/\\/g, "/");
-  const cleanPath = normalizedPath.startsWith("/") ? normalizedPath : `/${normalizedPath}`;
-  return `${baseURL}${cleanPath}`;
-};
+  const formatMediaUrl = (path) => {
+    if (!path) return "";
+    if (path.startsWith("http://") || path.startsWith("https://")) return path;
+    const normalizedPath = path.replace(/\\/g, "/");
+    const cleanPath = normalizedPath.startsWith("/") ? normalizedPath : `/${normalizedPath}`;
+    return `${baseURL}${cleanPath}`;
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -27,7 +47,7 @@ const formatMediaUrl = (path) => {
 
         // 2. Fetch Hero Banner Image
         // const resBanner = await axios.get("http://localhost:4000/api/activities/banner");
-        const resBanner= await API.get("/api/activities/banner");
+        const resBanner = await API.get("/api/activities/banner");
         if (resBanner.data?.bannerImage) {
           setBanner(resBanner.data.bannerImage);
         }
@@ -64,13 +84,12 @@ const formatMediaUrl = (path) => {
   }
 
   // 🎯 Banner Image URL Format စစ်ဆေးခြင်း
-  const bannerSrc = banner 
-  ? formatMediaUrl(banner) 
-  : "https://images.unsplash.com/photo-1523050854058-8df90110c9f0?w=1600";
+  const bannerSrc = banner
+    ? formatMediaUrl(banner)
+    : "https://images.unsplash.com/photo-1523050854058-8df90110c9f0?w=1600";
 
   return (
     <div className="bg-gray-50 dark:bg-gray-900 min-h-screen text-gray-800 dark:text-gray-100 transition-colors duration-300">
-
       {/* 🚀 Dynamic Hero Banner */}
       <section className="relative h-[250px] md:h-[350px] w-full bg-slate-900 dark:bg-slate-950 overflow-hidden flex items-center justify-center">
         {/* Dynamic Background Image */}
@@ -95,7 +114,6 @@ const formatMediaUrl = (path) => {
 
       {/* 📦 Main Content Area */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 py-12">
-
         {/* Card Grid */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {activities.map((activity) => {
@@ -107,7 +125,6 @@ const formatMediaUrl = (path) => {
                 key={activity._id}
                 className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col"
               >
-
                 {/* 🖼️ Activity Image Slider */}
                 <div className="relative h-60 w-full bg-gray-100 dark:bg-gray-900 overflow-hidden group">
                   {images.length > 0 ? (
@@ -165,7 +182,7 @@ const formatMediaUrl = (path) => {
                     <div className="flex flex-wrap gap-2 mb-4">
                       {activity.date && (
                         <span className="bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 px-3 py-1 rounded-full text-xs font-semibold">
-                          📅 {activity.date}
+                          📅 {formatDateDMY(activity.date)}
                         </span>
                       )}
 
@@ -182,12 +199,11 @@ const formatMediaUrl = (path) => {
                       )}
                     </div>
 
-                    <p className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed line-clamp-3">
+                    <p className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed break-words">
                       {activity.description}
                     </p>
                   </div>
                 </div>
-
               </div>
             );
           })}
@@ -199,7 +215,6 @@ const formatMediaUrl = (path) => {
             No activities available at the moment.
           </div>
         )}
-
       </main>
     </div>
   );
